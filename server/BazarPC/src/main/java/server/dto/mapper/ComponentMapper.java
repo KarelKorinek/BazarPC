@@ -9,5 +9,5 @@ public interface ComponentMapper {
 
     ComponentEntity toEntity(ComponentDTO source);
 
-    ComponentDTO toDTO(ComponentDTO source);
+    ComponentDTO toDTO(ComponentEntity source);
 }
