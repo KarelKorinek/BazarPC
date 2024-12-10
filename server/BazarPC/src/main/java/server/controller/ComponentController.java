@@ -2,12 +2,11 @@ package server.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import server.dto.ComponentDTO;
 import server.service.ComponentService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/bazar")
@@ -26,5 +25,16 @@ public class ComponentController {
     @PostMapping("/component")
     public ComponentDTO addComponent(@RequestBody ComponentDTO componentDTO) {
         return componentService.addComponent(componentDTO);
+    }
+
+    /**
+     *
+     *  Get a list of PC components from database
+     *
+     * @return              a list of PC components from database
+     */
+    @GetMapping("/component")
+    public List<ComponentDTO> getAllComponents() {
+        return componentService.getAllComponents();
     }
 }
