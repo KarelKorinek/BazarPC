@@ -22,4 +22,13 @@ public interface ComponentService {
      */
     List<ComponentDTO> getAllComponents();
 
+    /**
+     *
+     *  Read specific PC component from the database according its Id
+     *
+     * @param Id        PC component Id
+     * @return          specific PC component read out from database
+     */
+    ComponentDTO getComponent(Long Id);
+
 }

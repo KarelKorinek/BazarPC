@@ -37,4 +37,16 @@ public class ComponentController {
     public List<ComponentDTO> getAllComponents() {
         return componentService.getAllComponents();
     }
+
+    /**
+     *
+     *  Get specific PC component according its Id
+     *
+     * @param Id            PC component Id according it will be found in the database
+     * @return              PC component DTO
+     */
+    @GetMapping("/component/{Id}")
+    public ComponentDTO getComponent(@PathVariable Long Id) {
+        return componentService.getComponent(Id);
+    }
 }

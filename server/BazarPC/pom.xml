@@ -85,6 +85,10 @@
                             <version>${org.hibernate.version}</version>
                         </path>
                     </annotationProcessorPaths>
+                    <compilerArgs>
+                        <!-- the arg -parameters allows to use instead of i.e. @PathVariable("Id") just @PathVariable without parameter name  -->
+                        <arg>-parameters</arg>
+                    </compilerArgs>
                 </configuration>
             </plugin>
         </plugins>

@@ -59,4 +59,21 @@ public class ComponentServiceImpl implements ComponentService{
         // return the list of component DTOs
         return componentDTOs;
     }
+
+    /**
+     *
+     *  The service method reads out PC component according its Id
+     *
+     * @param Id        PC component Id according the component will be found in the database
+     * @return          PC component DTO
+     */
+    @Override
+    public ComponentDTO getComponent(Long Id) {
+
+        // read out PC component from database according its Id
+        ComponentEntity componentEntity = componentRepository.getReferenceById(Id);
+
+        // convert PC component to DTO and return
+        return componentMapper.toDTO(componentEntity);
+    }
 }
