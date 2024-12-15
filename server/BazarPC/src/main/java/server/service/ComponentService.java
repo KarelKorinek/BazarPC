@@ -42,4 +42,11 @@ public interface ComponentService {
      */
     ComponentDTO updateComponent(Long Id, ComponentDTO componentDTO);
 
+    /**
+     *
+     *  Remove specific PC component in database
+     *
+     * @param Id            PC component Id
+     */
+    void removeComponent(Long Id);
 }

@@ -118,4 +118,10 @@ public class ComponentServiceImpl implements ComponentService{
         // return updated PC component saved to database
         return componentMapper.toDTO(componentRepository.getReferenceById(Id));
     }
+
+    @Override
+    public void removeComponent(Long Id) {
+        // remove PC component in database
+        componentRepository.delete( getComponentFromDb(Id));
+    }
 }

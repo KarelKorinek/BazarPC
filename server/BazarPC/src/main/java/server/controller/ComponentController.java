@@ -64,4 +64,16 @@ public class ComponentController {
     public ComponentDTO updateComponent(@PathVariable Long Id, @RequestBody ComponentDTO updatedComponentDTO) {
         return componentService.updateComponent(Id, updatedComponentDTO);
     }
+
+    /**
+     *
+     *  Remove PC component in database
+     *
+     * @param Id                    PC component Id
+     */
+    @DeleteMapping("/component/{Id}")
+    public void removeComponent(@PathVariable Long Id) {
+        // remove PC component in database
+        componentService.removeComponent(Id);
+    }
 }
