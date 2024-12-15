@@ -26,9 +26,20 @@ public interface ComponentService {
      *
      *  Read specific PC component from the database according its Id
      *
-     * @param Id        PC component Id
-     * @return          specific PC component read out from database
+     * @param Id            PC component Id
+     * @return              specific PC component read out from database
      */
     ComponentDTO getComponent(Long Id);
+
+    /**
+     *
+     *  Update specific PC component in database
+     *  PC component will be search according its Id in database and updated
+     *
+     * @param Id            PC component Id
+     * @param componentDTO  updated PC component data
+     * @return              edited PC component data
+     */
+    ComponentDTO updateComponent(Long Id, ComponentDTO componentDTO);
 
 }

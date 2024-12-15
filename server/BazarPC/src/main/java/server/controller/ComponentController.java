@@ -2,6 +2,7 @@ package server.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import server.dto.ComponentDTO;
 import server.service.ComponentService;
@@ -19,12 +20,12 @@ public class ComponentController {
      *
      *  Add new PC component to database
      *
-     * @param componentDTO  data to save to database
+     * @param newComponentDTO  data to save to database
      * @return              saved data to database
      */
     @PostMapping("/component")
-    public ComponentDTO addComponent(@RequestBody ComponentDTO componentDTO) {
-        return componentService.addComponent(componentDTO);
+    public ComponentDTO addComponent(@RequestBody ComponentDTO newComponentDTO) {
+        return componentService.addComponent(newComponentDTO);
     }
 
     /**
@@ -48,5 +49,19 @@ public class ComponentController {
     @GetMapping("/component/{Id}")
     public ComponentDTO getComponent(@PathVariable Long Id) {
         return componentService.getComponent(Id);
+    }
+
+    /**
+     *
+     *  Update existing PC component in database
+     *
+     * @param Id                    Id of PC compoment to be updated
+     * @param updatedComponentDTO   PC component data that update existing PC component in database
+     * @return                      updated PC component from database
+     */
+    @PutMapping("/component/{Id}")
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ComponentDTO updateComponent(@PathVariable Long Id, @RequestBody ComponentDTO updatedComponentDTO) {
+        return componentService.updateComponent(Id, updatedComponentDTO);
     }
 }
