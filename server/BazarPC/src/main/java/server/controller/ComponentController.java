@@ -3,10 +3,11 @@ package server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import server.dto.ComponentDTO;
 import server.service.ComponentService;
-
 import java.util.List;
 
 @RestController
@@ -21,11 +22,19 @@ public class ComponentController {
      *  Add new PC component to database
      *
      * @param newComponentDTO  data to save to database
-     * @return              saved data to database
+     * @param image01          image 01 to be stored
+     * @param image02          image 02 to be stored
+     * @param image03          image 03 to be stored
+     *
+     * @return                 saved data to database
      */
-    @PostMapping("/component")
-    public ComponentDTO addComponent(@RequestBody ComponentDTO newComponentDTO) {
-        return componentService.addComponent(newComponentDTO);
+    @PostMapping(value = "/component", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ComponentDTO addComponent( @RequestPart("image01") MultipartFile image01,
+                                      @RequestPart("image02") MultipartFile image02,
+                                      @RequestPart("image03") MultipartFile image03,
+                                      @RequestPart("data") ComponentDTO newComponentDTO) {
+
+        return componentService.addComponent(newComponentDTO, image01, image02, image03);
     }
 
     /**

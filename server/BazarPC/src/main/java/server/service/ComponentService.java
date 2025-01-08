@@ -1,5 +1,6 @@
 package server.service;
 
+import org.springframework.web.multipart.MultipartFile;
 import server.dto.ComponentDTO;
 
 import java.util.List;
@@ -10,9 +11,15 @@ public interface ComponentService {
      *  Add new PC component to database
      *
      * @param componentDTO  data to be added to database
+     * @param image01       image 01 to be stored
+     * @param image02       image 02 to be stored
+     * @param image03       image 03 to be stored
      * @return              added data to database
      */
-    ComponentDTO addComponent(ComponentDTO componentDTO);
+    ComponentDTO addComponent( ComponentDTO componentDTO,
+                               MultipartFile image01,
+                               MultipartFile image02,
+                               MultipartFile image03);
 
     /**
      *

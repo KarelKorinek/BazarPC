@@ -1,14 +1,16 @@
 package server.service;
 
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import server.dto.ComponentDTO;
 import server.dto.mapper.ComponentMapper;
 import server.entity.ComponentEntity;
 import server.entity.repository.ComponentRepository;
 import server.service.exceptions.NotFoundException;
+import server.service.exceptions.UnsupportedMediaException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,9 @@ public class ComponentServiceImpl implements ComponentService{
 
     @Autowired
     ComponentRepository componentRepository;
+
+    @Autowired
+    FileStorageService fileStorageService;
 
     /**
      *
@@ -43,15 +48,46 @@ public class ComponentServiceImpl implements ComponentService{
 
         return  componentEntity;
     }
+
+    /**
+     *
+     *  The method saves image on server
+     *
+     * @param   componentDTO        PC component DTO
+     * @param   image               image to be stored on server
+     *
+     */
+    private void saveImage(ComponentDTO componentDTO, MultipartFile image) {
+
+        try {
+            // save image on server and set image name in DTO
+            componentDTO.setImageName(fileStorageService.saveFile(image, FileType.IMAGE));
+        } catch (IOException e) {
+            System.err.println("Error: " + e.getMessage());
+            throw new UnsupportedMediaException("IO exception while image storing");
+        }
+    }
+
     /**
      *
      *  The service method add a new PC component to database
      *
      * @param componentDTO  PC component data to be added to database
+     * @param image01       image 01 to be stored
+     * @param image02       image 02 to be stored
+     * @param image03       image 03 to be stored
      * @return              PC component data which has been added to database
      */
     @Override
-    public ComponentDTO addComponent(ComponentDTO componentDTO) {
+    public ComponentDTO addComponent(ComponentDTO componentDTO,
+                                     MultipartFile image01,
+                                     MultipartFile image02,
+                                     MultipartFile image03) {
+
+        // save images
+        saveImage(componentDTO, image01);
+        saveImage(componentDTO, image02);
+        saveImage(componentDTO, image03);
 
         // prepare data for saving to database, convert DTO to entity
         ComponentEntity componentEntity = componentMapper.toEntity(componentDTO);
