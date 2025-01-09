@@ -27,5 +27,9 @@ public class ComponentDTO {
 
     private Long publisherId;
 
-    private String imageName;
+    private String imageName01;
+
+    private String imageName02;
+
+    private String imageName03;
 }

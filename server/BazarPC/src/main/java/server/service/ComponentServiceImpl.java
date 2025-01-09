@@ -53,15 +53,15 @@ public class ComponentServiceImpl implements ComponentService{
      *
      *  The method saves image on server
      *
-     * @param   componentDTO        PC component DTO
      * @param   image               image to be stored on server
+     * @return                      unique identifier file name
      *
      */
-    private void saveImage(ComponentDTO componentDTO, MultipartFile image) {
+    private String saveImage(MultipartFile image) {
 
         try {
             // save image on server and set image name in DTO
-            componentDTO.setImageName(fileStorageService.saveFile(image, FileType.IMAGE));
+            return fileStorageService.saveFile(image, FileType.IMAGE);
         } catch (IOException e) {
             System.err.println("Error: " + e.getMessage());
             throw new UnsupportedMediaException("IO exception while image storing");
@@ -85,9 +85,9 @@ public class ComponentServiceImpl implements ComponentService{
                                      MultipartFile image03) {
 
         // save images
-        saveImage(componentDTO, image01);
-        saveImage(componentDTO, image02);
-        saveImage(componentDTO, image03);
+        componentDTO.setImageName01( saveImage(image01) );
+        componentDTO.setImageName02( saveImage(image02) );
+        componentDTO.setImageName03( saveImage(image03) );
 
         // prepare data for saving to database, convert DTO to entity
         ComponentEntity componentEntity = componentMapper.toEntity(componentDTO);
