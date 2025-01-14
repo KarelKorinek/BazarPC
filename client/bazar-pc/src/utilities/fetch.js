@@ -1,6 +1,6 @@
 
 
-function getData(url) {
+export function getData(url) {
 
     return fetch(url)
         .then(response => {

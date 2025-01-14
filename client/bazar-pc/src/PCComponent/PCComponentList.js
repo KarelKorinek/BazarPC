@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import {getData} from "../utilities/fetch"
 
 const PCComponentList = () => {
 
-    const [ PcComponents, setPcComponents] = useState({});
+    const [ PcComponentsState, setPcComponents] = useState([]);
 
     useEffect( () => {
         getData("http://localhost:8080/bazar/component")
@@ -20,12 +21,12 @@ const PCComponentList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    { PcComponents.map((item) => {
+                    { PcComponentsState.map( (item) => (
                         <tr>
                             <td>{item.name}</td>
                             <td>{item.price}</td>
                         </tr>
-                    })}
+                    ))}
                 </tbody>
             </table>
         </div>
