@@ -68,6 +68,16 @@ public class ComponentServiceImpl implements ComponentService{
         }
     }
 
+    private byte[] getImage(String fileName) {
+
+        try {
+            return fileStorageService.getFile(fileName);
+        } catch (IOException e) {
+            System.err.println("Error: " + e.getMessage());
+            throw new NotFoundException("The image was not found in storage");
+        }
+    }
+
     /**
      *
      *  The service method add a new PC component to database
@@ -113,7 +123,16 @@ public class ComponentServiceImpl implements ComponentService{
 
         // convert entities to DTOs
         for(ComponentEntity entity : componentEntities) {
-            componentDTOs.add(componentMapper.toDTO(entity));
+            // convert entity to DTO
+            ComponentDTO componentDTO = componentMapper.toDTO(entity);
+
+            // get images from storage
+            componentDTO.setImageFile01(getImage(componentDTO.getImageName01()));
+            componentDTO.setImageFile02(getImage(componentDTO.getImageName02()));
+            componentDTO.setImageFile03(getImage(componentDTO.getImageName03()));
+
+            // add component to the list
+            componentDTOs.add(componentDTO);
         }
 
         // return the list of component DTOs
@@ -130,8 +149,18 @@ public class ComponentServiceImpl implements ComponentService{
     @Override
     public ComponentDTO getComponent(Long Id) {
 
+        // get PC component data from database
+        ComponentDTO componentDTO = componentMapper.toDTO(getComponentFromDb(Id));
+
+        // get image 01
+        componentDTO.setImageFile01(getImage(componentDTO.getImageName01()));
+        // get image 02
+        componentDTO.setImageFile02(getImage(componentDTO.getImageName02()));
+        // get image 03
+        componentDTO.setImageFile03(getImage(componentDTO.getImageName03()));
+
         // convert PC component to DTO and return
-        return componentMapper.toDTO(getComponentFromDb(Id));
+        return componentDTO;
     }
 
     @Override

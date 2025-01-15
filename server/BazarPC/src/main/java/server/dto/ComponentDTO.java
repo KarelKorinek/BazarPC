@@ -32,4 +32,10 @@ public class ComponentDTO {
     private String imageName02;
 
     private String imageName03;
+
+    private byte[] imageFile01;
+
+    private byte[] imageFile02;
+
+    private byte[] imageFile03;
 }

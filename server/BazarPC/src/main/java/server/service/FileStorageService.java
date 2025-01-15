@@ -17,4 +17,6 @@ public interface FileStorageService {
      */
     String saveFile(MultipartFile file,
                     FileType fileType) throws IOException;
+
+    byte[] getFile(String fileName) throws IOException;
 }

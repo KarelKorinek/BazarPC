@@ -3,6 +3,7 @@ package server.service;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
+import java.nio.file.FileStore;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -64,6 +65,16 @@ public class FileStorageServiceImpl implements FileStorageService {
         }
 
         // file type is not valid
-        throw  new IOException("Unsupported file type");
+        throw new IOException("Unsupported file type");
+    }
+
+    @Override
+    public byte[] getFile(String fileName) throws IOException {
+
+        // get file path
+        Path filePath = Paths.get(String.valueOf(rootLocation), fileName);
+
+        // return file bytes
+        return Files.readAllBytes(filePath);
     }
 }
