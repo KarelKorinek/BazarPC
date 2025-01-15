@@ -10,6 +10,8 @@ const PCComponentList = () => {
         .then(data => setPcComponents(data));
     },[]);
 
+    if(!PcComponentsState) return(<p>Načítám...</p>);
+
     return (
         <div >
             <table className="table table-bordered">
