@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {getData} from "../utilities/fetch"
+import "../styles.css"
 
 const PCComponentList = () => {
 
@@ -17,6 +18,7 @@ const PCComponentList = () => {
             <table className="table table-bordered">
                 <thead>
                     <tr>
+                        <th>Image</th>
                         <th>Název</th>
                         <th>Cena</th>
                         <th>Prodejce</th>
@@ -25,6 +27,7 @@ const PCComponentList = () => {
                 <tbody>
                     { PcComponentsState.map( (item) => (
                         <tr>
+                            <td><img src={`data:image/jpeg;base64,${item.imageFile01}`}  className="img"></img></td>
                             <td>{item.name}</td>
                             <td>{item.price}</td>
                         </tr>
