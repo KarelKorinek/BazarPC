@@ -4,5 +4,12 @@ spring.datasource:
   password: 1234
   driver-class-name: com.mysql.cj.jdbc.Driver
 
+spring:
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
 server:
   port: 8080
