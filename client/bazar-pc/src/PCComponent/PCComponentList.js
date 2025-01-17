@@ -14,8 +14,8 @@ const PCComponentList = () => {
     if(!PcComponentsState) return(<p>Načítám...</p>);
 
     return (
-        <div >
-            <table className="table table-bordered">
+        <div className="container-mt5">
+            <table className="table  centered-table component-table table-hover" id="components-table">
                 <thead>
                     <tr>
                         <th>Image</th>
