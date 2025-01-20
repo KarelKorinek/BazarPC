@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react"
 import {getData} from "../utilities/fetch"
 import "../styles.css"
+import {Link} from "react-router-dom"
 
 const PCComponentList = () => {
 
@@ -15,7 +16,7 @@ const PCComponentList = () => {
 
     return (
         <div className="container-mt5">
-            <table className="table  centered-table component-table table-hover" id="components-table">
+            <table className="table  centered-table table-hover" id="components-table">
                 <thead>
                     <tr>
                         <th>Image</th>
@@ -26,10 +27,23 @@ const PCComponentList = () => {
                 </thead>
                 <tbody>
                     { PcComponentsState.map( (item) => (
-                        <tr>
-                            <td><img src={`data:image/jpeg;base64,${item.imageFile01}`}  className="img"></img></td>
-                            <td>{item.name}</td>
-                            <td>{item.price}</td>
+                        <tr> 
+                            <td>
+                                <Link to={"/bazar/detail/" + item.id}>
+                                    <img src={`data:image/jpeg;base64,${item.imageFile01}`} className="img"></img>
+                                </Link>
+                            </td>
+                            <td>
+                                <Link to={"/bazar/detail/" + item.id}>
+                                    {item.name}
+                                </Link>
+                            </td>
+                            <td>
+                                {item.price} Kč
+                            </td>
+                            <td>
+
+                            </td>
                         </tr>
                     ))}
                 </tbody>

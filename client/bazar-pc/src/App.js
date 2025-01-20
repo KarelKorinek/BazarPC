@@ -1,5 +1,6 @@
 import React from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 import {
   BrowserRouter as Router,
   Route,
@@ -8,6 +9,7 @@ import {
 } from "react-router-dom";
 
 import PCComponentList from "./PCComponent/PCComponentList";
+import PCComponentDetail from "./PCComponent/PCComponentDetail";
 
 
 export function App() {
@@ -15,9 +17,10 @@ export function App() {
     <Router>
       <div>
         <Routes>
-          <Route index element={<Navigate to={"/index"} />} />
-          <Route path="/index">
+          <Route index element={<Navigate to={"/bazar"} />} />
+          <Route path="/bazar">
             <Route index element={<PCComponentList />} />
+            <Route path="detail/:id" element={<PCComponentDetail />} />
           </Route>
         </Routes>
       </div>
