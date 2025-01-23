@@ -17,12 +17,12 @@ const PCComponentDetail = () => {
     if(!PCComponent) return (<div>Načítám...</div>);
     
     return (
-        <div className="container pt-5">
+        <div className="container w-50 card pt-5 mt-3 mb-3">
 
             <h1>
                 {PCComponent.name}
             </h1>
-            <div id="ImageCarousel" className="carousel slide w-50 pt-5" >
+            <div id="ImageCarousel" className="carousel slide pt-5" >
                 <div className="carousel-indicators">
                     <button type="button" data-bs-target="#ImageCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                     <button type="button" data-bs-target="#ImageCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -48,11 +48,11 @@ const PCComponentDetail = () => {
                     <span className="visually-hidden">Next</span>
                 </button>
             </div>
-
+            
             <h5 className="pt-5">
                 Popis: 
             </h5>
-            <p >
+            <p>
                 {PCComponent.description}
             </p>
             <h5>
@@ -67,6 +67,7 @@ const PCComponentDetail = () => {
             <p>
                 {PCComponent.price} Kč
             </p>
+
         </div>
     );
 }
