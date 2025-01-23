@@ -29,7 +29,7 @@ const PCComponentForm = () => {
     };
 
     return (
-        <div className="container form card p-3 mt-3 mb-3">
+        <div className="container custom-form-width card p-3 mt-3 mb-3">
             <h2>Vytvoření inzerátu:</h2>
 
             {/*Form for an ad creation*/}
