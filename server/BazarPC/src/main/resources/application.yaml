@@ -13,3 +13,11 @@ spring:
 
 server:
   port: 8080
+
+# Logging for debugging
+#logging:
+#  level:
+#    org.springframework.web: DEBUG
+#    org.springframework: INFO
+#  file:
+#    name: logs/myapp.log
