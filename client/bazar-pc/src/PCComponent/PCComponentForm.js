@@ -37,7 +37,7 @@ const PCComponentForm = () => {
 
                 {/*Name input*/}
                 <div className="mb-3">               
-                    <label for="name" className="form-label">
+                    <label htmlFor="name" className="form-label">
                         Název:
                     </label>
                     <input  className="form-control" 
@@ -49,7 +49,7 @@ const PCComponentForm = () => {
 
                 {/*Category input*/}
                 <div className="mb-3">               
-                    <label for="category" className="form-label">
+                    <label htmlFor="category" className="form-label">
                         Kategorie: 
                     </label>
                     <input  type="text"
@@ -62,7 +62,7 @@ const PCComponentForm = () => {
 
                  {/*Price input*/}
                  <div className="mb-3">               
-                    <label for="price" className="form-label">
+                    <label htmlFor="price" className="form-label">
                         Cena: 
                     </label>
                     <input  type="number"
@@ -75,7 +75,7 @@ const PCComponentForm = () => {
 
                 {/*Description input*/}
                 <div className="mb-3">               
-                    <label for="description" className="form-label">
+                    <label htmlFor="description" className="form-label">
                         Popis: 
                     </label>
                     <textarea   className="form-control" 
@@ -87,7 +87,7 @@ const PCComponentForm = () => {
 
                 {/*Load image 01 input*/}
                 <div className="mb-3">               
-                    <label for="image01" className="form-label">
+                    <label htmlFor="image01" className="form-label">
                         Nahrát 1. fotku: 
                     </label>
                     <input  type="file"
@@ -99,7 +99,7 @@ const PCComponentForm = () => {
 
                 {/*Load image 02 input*/}
                 <div className="mb-3">               
-                    <label for="image02" className="form-label">
+                    <label htmlFor="image02" className="form-label">
                         Nahrát 2. fotku: 
                     </label>
                     <input  type="file"
@@ -111,7 +111,7 @@ const PCComponentForm = () => {
 
                 {/*Load image 03 input*/}
                 <div className="mb-3">               
-                    <label for="image03" className="form-label">
+                    <label htmlFor="image03" className="form-label">
                         Nahrát 3. fotku: 
                     </label>
                     <input  type="file"

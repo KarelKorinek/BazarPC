@@ -27,7 +27,8 @@ const PCComponentList = () => {
                 </thead>
                 <tbody>
                     { PcComponentsState.map( (item) => (
-                        <tr> 
+                        <tr key={item.id}> 
+
                             <td>
                                 <Link to={"/bazar/detail/" + item.id}>
                                     <img src={`data:image/jpeg;base64,${item.imageFile01}`} className="img"></img>
