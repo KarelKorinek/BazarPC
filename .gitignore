@@ -3,3 +3,6 @@ node_modules/
 
 # ignore uploaded images
 uploads/
+
+# ignore log files
+logs/
