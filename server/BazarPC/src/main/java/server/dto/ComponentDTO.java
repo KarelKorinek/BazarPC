@@ -25,7 +25,7 @@ public class ComponentDTO {
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate publishedDate;
 
-    private Long publisherId;
+    private Long userId;
 
     private String imageName01;
 

@@ -26,7 +26,7 @@ public class ComponentEntity {
 
     private LocalDate publishedDate;
 
-    private Long publisherId;
+    private Long userId;
 
     private String imageName01;
 

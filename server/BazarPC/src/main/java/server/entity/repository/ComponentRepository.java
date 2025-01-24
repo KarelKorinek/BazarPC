@@ -5,4 +5,5 @@ import server.entity.ComponentEntity;
 
 public interface ComponentRepository extends JpaRepository<ComponentEntity, Long> {
 
+    void deleteAllByUserId(Long Id);
 }
