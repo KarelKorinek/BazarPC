@@ -13,7 +13,7 @@ public class UserDTO {
 
     private String firstName;
 
-    private String LastName;
+    private String lastName;
 
     private String city;
 

@@ -4,6 +4,7 @@ package server.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import server.dto.ComponentDTO;
@@ -19,7 +20,8 @@ public class ComponentController {
 
     /**
      *
-     *  Add new PC component to database
+     *  Add new PC component to database.
+     *  This action is allowed just to logged users.
      *
      * @param newComponentDTO  data to save to database
      * @param image01          image 01 to be stored
@@ -28,6 +30,7 @@ public class ComponentController {
      *
      * @return                 saved data to database
      */
+    @Secured("ROLE_USER")
     @PostMapping(value = "/component", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ComponentDTO addComponent( @RequestPart("image01") MultipartFile image01,
                                       @RequestPart("image02") MultipartFile image02,
@@ -62,12 +65,14 @@ public class ComponentController {
 
     /**
      *
-     *  Update existing PC component in database
+     *  Update existing PC component in database.
+     *  This action is allowed just logged users.
      *
      * @param Id                    Id of PC compoment to be updated
      * @param updatedComponentDTO   PC component data that update existing PC component in database
      * @return                      updated PC component from database
      */
+    @Secured("ROLE_USER")
     @PutMapping("/component/{Id}")
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ComponentDTO updateComponent(@PathVariable Long Id, @RequestBody ComponentDTO updatedComponentDTO) {
@@ -76,10 +81,12 @@ public class ComponentController {
 
     /**
      *
-     *  Remove PC component in database
+     *  Remove PC component in database.
+     *  This action is allowed just to logged users.
      *
      * @param Id                    PC component Id
      */
+    @Secured("ROLE_USER")
     @DeleteMapping("/component/{Id}")
     public void removeComponent(@PathVariable Long Id) {
         // remove PC component in database
