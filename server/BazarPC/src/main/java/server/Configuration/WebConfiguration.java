@@ -10,6 +10,7 @@ public class WebConfiguration implements  WebMvcConfigurer{
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")                    // all mapping allowed
-                .allowedOrigins("http://localhost:3000");       // React client URL
+                .allowedOrigins("http://localhost:3000")        // React client URL
+                .allowCredentials(true);                        // allow cookies
     }
 }
