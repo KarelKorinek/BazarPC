@@ -1,26 +1,40 @@
 
+function handleFetch( url, options) {
 
-export function getData(url) {
-
-    return fetch(url)
+    // send cookie with request
+    options = { ...options, credentials: "include"}
+    
+    return fetch(url, options)
         .then(response => {
             if(response.ok) return response.json();
             throw new Error("Error while getting data from server.");
         })
-        .catch(error => console.log(error));   
+        .catch(error => console.log(error));      
 }
 
-export function postData(url, data) {
+
+export function getData(url) {
+
+    return handleFetch(url);
+}
+
+export function postFormData(url, data) {
 
     const options = {
         method: "POST",
         body: data          
     }
 
-    return fetch(url, options)
-        .then(response => {
-            if(response.ok) return response.json();
-            throw new Error("Error while getting data from server.");
-        })
-        .catch(error => console.log(error));   
+    return handleFetch(url, options);
+}
+
+export function postJSONData(url, data) {
+
+    const options = {
+        method: "POST",
+        headers: { "Content-Type" : "application/json" },
+        body: JSON.stringify(data),          
+    }
+
+    return handleFetch(url, options);
 }
