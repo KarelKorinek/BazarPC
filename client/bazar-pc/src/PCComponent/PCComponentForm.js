@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { postData } from "../utilities/fetch";
+import { postFormData } from "../utilities/fetch";
 
 const PCComponentForm = () => {
 
@@ -24,8 +24,8 @@ const PCComponentForm = () => {
         formData.append("image03", imagesState[2]);
         formData.append("data", data);
 
-        postData( "http://localhost:8080/bazar/component",
-                  formData );
+        postFormData( "http://localhost:8080/bazar/component",
+                      formData );
     };
 
     return (
