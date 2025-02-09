@@ -11,6 +11,7 @@ public class WebConfiguration implements  WebMvcConfigurer{
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")                    // all mapping allowed
                 .allowedOrigins("http://localhost:3000")        // React client URL
+                .allowedMethods("GET","POST","PUT","DELETE")
                 .allowCredentials(true);                        // allow cookies
     }
 }

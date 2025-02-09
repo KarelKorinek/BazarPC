@@ -92,7 +92,6 @@ public class UserController {
      *
      * @return          the user information
      */
-    @Secured("ROLE_USER")
     @GetMapping("/account")
     public UserDTO loggedUserInfo() {
         return userService.loggedUserInfo();
