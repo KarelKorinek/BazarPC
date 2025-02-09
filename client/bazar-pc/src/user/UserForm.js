@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { postJSONData } from "../utilities/fetch";
+import { useNavigate } from "react-router-dom"; 
 
 
 const UserForm = () => {
 
     const [userState, setUser] = useState({});
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
 
@@ -13,10 +15,14 @@ const UserForm = () => {
         } else {
 
             // create new object userData and copy userState content without confirmPassword
-            const [ confirmPassword, ...userData] = userState;
+            const { confirmPassword, ...userData } = userState;
 
-            postJSONData( "http://localhost:8080/bazar/user/account",
-                          userData );
+            postJSONData( "http://localhost:8080/bazar/user/",
+                          userData )
+                    .then(() => {
+                        // redirect to login page
+                        navigate("/bazar/user/account")
+                    });
         }
     }
 
