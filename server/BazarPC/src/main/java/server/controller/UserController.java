@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import server.dto.UserDTO;
 import server.service.UserService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/bazar/user")
 public class UserController {
@@ -35,6 +37,18 @@ public class UserController {
     @PostMapping("/")
     public UserDTO addUser(@RequestBody @Valid UserDTO userDTO) {
         return userService.addUser(userDTO);
+    }
+
+    /**
+     *
+     *  Get a list of existing users from database
+     *
+     * @return      the list of users
+     */
+    @Secured("ROLE_USER")
+    @GetMapping("/")
+    public List<UserDTO> getAllUsers() {
+        return  userService.getAllUsers();
     }
 
     /**

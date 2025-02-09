@@ -27,6 +27,8 @@ public class ComponentDTO {
 
     private Long userId;
 
+    private UserDTO userDetail;
+
     private String imageName01;
 
     private String imageName02;

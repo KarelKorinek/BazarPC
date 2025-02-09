@@ -18,6 +18,9 @@ import server.service.exceptions.EmailAlreadyExistsException;
 import server.service.exceptions.NotFoundException;
 import server.service.exceptions.AuthenticationException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService{
 
@@ -72,6 +75,27 @@ public class UserServiceImpl implements UserService{
         } catch (DataIntegrityViolationException e) {
             throw new EmailAlreadyExistsException("User with this e-mail already exists");
         }
+    }
+
+    /**
+     *  The service method reads all existing users from the database and return the list of them
+     *
+     * @return          the list of users
+     */
+    @Override
+    public List<UserDTO> getAllUsers() {
+            // read out all users from database
+            List<UserEntity> userEntities = userRepository.findAll();
+
+            // create empty list of user DTOs
+            List<UserDTO> userDTOList = new ArrayList<>();
+
+            // go through use entities and convert them to DTOs and store in a list
+            for( UserEntity userEntity : userEntities) {
+                UserDTO userDTO = userMapper.toDTONoPassword(userEntity);
+                userDTOList.add(userDTO);
+            }
+        return userDTOList;
     }
 
     /**

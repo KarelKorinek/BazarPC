@@ -3,6 +3,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import server.dto.UserDTO;
 
+import java.util.List;
+
 
 public interface UserService extends UserDetailsService {
 
@@ -13,6 +15,8 @@ public interface UserService extends UserDetailsService {
      * @return              added data to database
      */
     UserDTO addUser(UserDTO userDTO);
+
+    List<UserDTO> getAllUsers();
 
     /**
      *  Read out existing user according his id from database

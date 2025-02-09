@@ -5,8 +5,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import server.dto.ComponentDTO;
 import server.dto.mapper.ComponentMapper;
+import server.dto.mapper.UserMapper;
 import server.entity.ComponentEntity;
+import server.entity.UserEntity;
 import server.entity.repository.ComponentRepository;
+import server.entity.repository.UserRepository;
 import server.service.exceptions.NotFoundException;
 import server.service.exceptions.UnsupportedMediaException;
 
@@ -21,11 +24,38 @@ public class ComponentServiceImpl implements ComponentService{
     ComponentMapper componentMapper;
 
     @Autowired
+    UserMapper userMapper;
+
+    @Autowired
     ComponentRepository componentRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @Autowired
     FileStorageService fileStorageService;
 
+    private ComponentDTO addAdditionalData(ComponentDTO componentDTO) {
+
+        UserEntity userEntity;
+       try {
+           // get user entity for user detail
+           userEntity = userRepository.getReferenceById(componentDTO.getUserId());
+
+           // set user detail
+           componentDTO.setUserDetail(userMapper.toDTONoPassword(userEntity));
+
+           // get images from storage
+           componentDTO.setImageFile01(getImage(componentDTO.getImageName01()));
+           componentDTO.setImageFile02(getImage(componentDTO.getImageName02()));
+           componentDTO.setImageFile03(getImage(componentDTO.getImageName03()));
+       } catch (RuntimeException e) {
+           System.err.println("Error: " + e.getMessage());
+           throw e;
+       }
+
+        return componentDTO;
+    }
     /**
      *
      *  The method find PC component in database according its Id
@@ -126,13 +156,11 @@ public class ComponentServiceImpl implements ComponentService{
             // convert entity to DTO
             ComponentDTO componentDTO = componentMapper.toDTO(entity);
 
-            // get images from storage
-            componentDTO.setImageFile01(getImage(componentDTO.getImageName01()));
-            componentDTO.setImageFile02(getImage(componentDTO.getImageName02()));
-            componentDTO.setImageFile03(getImage(componentDTO.getImageName03()));
+            // add additional data to component DTO
+            ComponentDTO componentDTOComplete = addAdditionalData(componentDTO);
 
             // add component to the list
-            componentDTOs.add(componentDTO);
+            componentDTOs.add(componentDTOComplete);
         }
 
         // return the list of component DTOs
@@ -152,15 +180,8 @@ public class ComponentServiceImpl implements ComponentService{
         // get PC component data from database
         ComponentDTO componentDTO = componentMapper.toDTO(getComponentFromDb(Id));
 
-        // get image 01
-        componentDTO.setImageFile01(getImage(componentDTO.getImageName01()));
-        // get image 02
-        componentDTO.setImageFile02(getImage(componentDTO.getImageName02()));
-        // get image 03
-        componentDTO.setImageFile03(getImage(componentDTO.getImageName03()));
-
-        // convert PC component to DTO and return
-        return componentDTO;
+        // add additional data to component DTO and return
+        return addAdditionalData(componentDTO);
     }
 
     @Override

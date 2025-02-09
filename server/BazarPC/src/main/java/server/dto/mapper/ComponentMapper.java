@@ -11,6 +11,7 @@ public interface ComponentMapper {
 
     ComponentEntity toEntity(ComponentDTO source);
 
+    @Mapping(target = "userDetail", ignore = true)
     @Mapping(target = "imageFile01", ignore = true)
     @Mapping(target = "imageFile02", ignore = true)
     @Mapping(target = "imageFile03", ignore = true)
