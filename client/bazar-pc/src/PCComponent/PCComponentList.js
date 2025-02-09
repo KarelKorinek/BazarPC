@@ -12,8 +12,8 @@ const PCComponentList = () => {
         .then(data => setPcComponents(data));
     },[]);
 
-    if(!PcComponentsState) return(<p>Načítám...</p>);
-
+    if(!PcComponentsState.length) return(<p>Načítám...</p>);
+    
     return (
         <div className="container-mt5">
             <table className="table  centered-table table-hover" id="components-table">
@@ -41,9 +41,9 @@ const PCComponentList = () => {
                             </td>
                             <td>
                                 {item.price} Kč
-                            </td>
+                            </td>                           
                             <td>
-
+                                { item.userDetail ? `${item.userDetail.firstName} ${item.userDetail.lastName}`  : "Neznámý uživatel"}
                             </td>
                         </tr>
                     ))}
