@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { postFormData } from "../utilities/fetch";
+import { useSession } from "../context/session";
 
 const PCComponentForm = () => {
 
+    const {session, setSession} = useSession();
     const [imagesState, setImages] = useState([]);
     const [PCComponentState, setPCComponent] = useState( {
         name: "",
@@ -10,12 +12,13 @@ const PCComponentForm = () => {
         price: "",
         description: "",
         publishedDate: "",
-        publisherId: "",
+        userId: null,
     } );
 
     const handleSubmit = (e) => {
 
         const formData = new FormData();
+
         // insert PC Component state to data variable and set content-type to application/json 
         const data = new Blob([JSON.stringify(PCComponentState)], { type: 'application/json' });
 
@@ -27,6 +30,11 @@ const PCComponentForm = () => {
         postFormData( "http://localhost:8080/bazar/component",
                       formData );
     };
+
+    useEffect(() =>{
+        if(session.data) 
+            setPCComponent( {...PCComponentState, userId: session.data.id});
+    },[session]);
 
     return (
         <div className="container custom-form-width card p-3 mt-3 mb-3">
