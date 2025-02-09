@@ -1,18 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { postJSONData } from "../utilities/fetch";
+import { useNavigate } from "react-router-dom";
+import { useSession } from "../context/session";
 
 const LoginForm = () => {
+
+    const navigate = useNavigate();
+    const { session, setSession } = useSession();
 
     const [userState, setUser] = useState({
         email: "",
         password: "",
     });
 
-    const handleSubmit = (e) => {
+    const handleSubmit = () => {
 
         postJSONData(   "http://localhost:8080/bazar/user/account",
-                        userState );
+                        userState )
+                    .then((data) => setSession( {data, status: "authenticated"}));
+
+
     }
+
+    useEffect(() => {
+        // redirect to main page
+        if(session.data) navigate("/");
+    }, [session]);
 
     return (
         <div className="container custom-form-width card p-3 mt-3 mb-3">
