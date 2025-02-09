@@ -12,6 +12,14 @@ function handleFetch( url, options) {
         .catch(error => console.log(error));      
 }
 
+export function deleteData(url) {
+
+    const options = {
+        method: "DELETE",
+    }
+
+    return handleFetch(url, options);
+}
 
 export function getData(url) {
 
