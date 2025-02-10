@@ -202,7 +202,13 @@ public class ComponentServiceImpl implements ComponentService{
 
         // convert PC component entities to PC component DTOs
         for(ComponentEntity componentEntity : componentEntities) {
-            componentDTOs.add(componentMapper.toDTO(componentEntity));
+
+            ComponentDTO componentDTO = componentMapper.toDTO(componentEntity);
+
+            // add additional data to component DTO
+            ComponentDTO componentDTOComplete = addAdditionalData(componentDTO);
+
+            componentDTOs.add(componentDTOComplete);
         }
 
         return componentDTOs;
