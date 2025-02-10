@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from "react"
 import {getData} from "../utilities/fetch"
 import "../styles.css"
-import {Link} from "react-router-dom"
+import {Link, useNavigate, useParams} from "react-router-dom"
 
 const PCComponentList = () => {
 
+    const navigate = useNavigate();
+    const {userId} = useParams();
     const [ PcComponentsState, setPcComponents] = useState([]);
 
     useEffect( () => {
-        getData("http://localhost:8080/bazar/component")
-        .then(data => setPcComponents(data));
+        userId ?
+                    getData("http://localhost:8080/bazar/components/" + userId)
+                        .then( data => setPcComponents(data))
+                :   
+                    getData("http://localhost:8080/bazar/components")
+                        .then(data => setPcComponents(data))
     },[]);
 
     if(!PcComponentsState.length) return(<p>Načítám...</p>);

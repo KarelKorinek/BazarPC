@@ -43,7 +43,7 @@ export function App() {
                                 <NavLink className="nav-link" to="bazar/component/create" end>Přidat inzerát</NavLink>
                               </li>
                               <li className="nav-item">
-                                <NavLink className="nav-link" to="bazar/user/components" end>Mé inzeráty</NavLink>
+                                <NavLink className="nav-link" to={`bazar/components/${session.data.id}`} end>Mé inzeráty</NavLink>
                               </li>
                               <li className="nav-item">
                                 <button className="nav-link " onClick={handleLogout}>Odhlásit se</button>
@@ -65,8 +65,7 @@ export function App() {
                               <li className="nav-item">
                                 <NavLink className="nav-link" to="bazar/user/account" end>Přihlásit se</NavLink>
                               </li>
-                            </>
-                                  
+                            </>                           
             }
           </>
         </nav>
@@ -78,6 +77,7 @@ export function App() {
             <Route index element={<PCComponentList />} />
             <Route path="detail/:id" element={<PCComponentDetail />} />
             <Route path="component/create" element={<PCComponentForm />} />
+            <Route path="components/:userId" element={<PCComponentList key={window.location.pathname}/>} />
             <Route path="user" element={<UserForm />} />
             <Route path="user/account" element={<LoginForm />} />
           </Route>
