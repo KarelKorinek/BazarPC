@@ -65,6 +65,16 @@ public class ComponentController {
 
     /**
      *
+     *  Get a PC component list for specific user
+     *
+     * @param userId            User ID for which the component list should be found
+     * @return                  the PC component list
+     */
+    @GetMapping("/components/{userId}")
+    public List<ComponentDTO> getComponents(@PathVariable Long userId) { return  componentService.getUserComponents(userId); }
+
+    /**
+     *
      *  Update existing PC component in database.
      *  This action is allowed just logged users.
      *

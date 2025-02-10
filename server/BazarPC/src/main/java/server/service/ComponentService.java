@@ -40,6 +40,15 @@ public interface ComponentService {
 
     /**
      *
+     *  Read PC component list associated with a specific user
+     *
+     * @param userId        User ID for which the component list should be found
+     * @return              the PC component list that belongs to user
+     */
+    List<ComponentDTO> getUserComponents(Long userId);
+
+    /**
+     *
      *  Update specific PC component in database
      *  PC component will be search according its Id in database and updated
      *

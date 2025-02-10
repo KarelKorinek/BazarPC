@@ -184,6 +184,30 @@ public class ComponentServiceImpl implements ComponentService{
         return addAdditionalData(componentDTO);
     }
 
+    /**
+     *
+     *  Read PC component list associated with a specific user
+     *
+     * @param userId        User ID for which the component list should be found
+     * @return              the PC component list that belongs to user
+     */
+    @Override
+    public List<ComponentDTO> getUserComponents(Long userId) {
+
+        // read out PC component list associated to specific user
+        List<ComponentEntity> componentEntities = componentRepository.findByUserId(userId);
+
+        // prepare empty list of component DTOs
+        List<ComponentDTO> componentDTOs = new ArrayList<>();
+
+        // convert PC component entities to PC component DTOs
+        for(ComponentEntity componentEntity : componentEntities) {
+            componentDTOs.add(componentMapper.toDTO(componentEntity));
+        }
+
+        return componentDTOs;
+    }
+
     @Override
     public ComponentDTO updateComponent(Long Id, ComponentDTO componentDTO) {
 
