@@ -46,7 +46,7 @@ public class ComponentController {
      *
      * @return              a list of PC components from database
      */
-    @GetMapping("/component")
+    @GetMapping("/components")
     public List<ComponentDTO> getAllComponents() {
         return componentService.getAllComponents();
     }
@@ -70,6 +70,7 @@ public class ComponentController {
      * @param userId            User ID for which the component list should be found
      * @return                  the PC component list
      */
+    @Secured("ROLE_USER")
     @GetMapping("/components/{userId}")
     public List<ComponentDTO> getComponents(@PathVariable Long userId) { return  componentService.getUserComponents(userId); }
 
