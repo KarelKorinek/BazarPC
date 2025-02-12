@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import {getData} from "../utilities/fetch"
+import {getData, deleteData} from "../utilities/fetch"
 import "../styles.css"
 import {Link, useNavigate, useParams} from "react-router-dom"
 
@@ -7,7 +7,7 @@ const PCComponentList = () => {
 
     const navigate = useNavigate();
     const {userId} = useParams();
-    const [ PcComponentsState, setPcComponents] = useState([]);
+    const [ PcComponentsState, setPcComponents] = useState(null);
 
     useEffect( () => {
         userId ?
@@ -18,7 +18,13 @@ const PCComponentList = () => {
                         .then(data => setPcComponents(data))
     },[]);
 
-    if(!PcComponentsState.length) return(<p>Načítám...</p>);
+    const deletePCComponent = (id) => {
+        deleteData("http://localhost:8080/bazar/component/" + id);
+        // update PC component list (remove deleted item according its id)
+        setPcComponents( prevList => prevList.filter(item => item.id !== id));
+    }
+
+    if(!PcComponentsState) return(<p>Načítám...</p>);
     
     return (
         <div className="container-mt5">
@@ -28,7 +34,9 @@ const PCComponentList = () => {
                         <th>Image</th>
                         <th>Název</th>
                         <th>Cena</th>
-                        <th>Prodejce</th>
+                        {userId ? <th>Akce</th>
+                                : <th>Prodejce</th>    
+                    }
                     </tr>
                 </thead>
                 <tbody>
@@ -47,10 +55,18 @@ const PCComponentList = () => {
                             </td>
                             <td>
                                 {item.price} Kč
-                            </td>                           
-                            <td>
-                                { item.userDetail ? `${item.userDetail.firstName} ${item.userDetail.lastName}`  : "Neznámý uživatel"}
                             </td>
+                            { userId ?  <td>
+                                            <div class="d-grid gap-2">
+                                                <button type="button" class="btn btn-danger" onClick={ () => {deletePCComponent(item.id)} }>Odstranit</button>
+                                                <button type="button" class="btn btn-warning" onClick={ () => {navigate("/bazar/component/edit/" + item.id)} }>Upravit</button>
+                                            </div>
+                                        </td>
+                                     :                           
+                                        <td>
+                                            { item.userDetail ? `${item.userDetail.firstName} ${item.userDetail.lastName}`  : "Neznámý uživatel"}
+                                        </td>
+                            }
                         </tr>
                     ))}
                 </tbody>

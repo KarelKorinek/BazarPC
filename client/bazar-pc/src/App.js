@@ -77,6 +77,7 @@ export function App() {
             <Route index element={<PCComponentList />} />
             <Route path="detail/:id" element={<PCComponentDetail />} />
             <Route path="component/create" element={<PCComponentForm />} />
+            <Route path="component/edit/:id" element={<PCComponentForm />} />
             <Route path="components/:userId" element={<PCComponentList key={window.location.pathname}/>} />
             <Route path="user" element={<UserForm />} />
             <Route path="user/account" element={<LoginForm />} />

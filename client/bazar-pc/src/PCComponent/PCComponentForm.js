@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { postFormData } from "../utilities/fetch";
+import { getData, postFormData } from "../utilities/fetch";
 import { useSession } from "../context/session";
+import { useParams } from "react-router-dom";
 
 const PCComponentForm = () => {
 
+    const {id} = useParams();
     const {session, setSession} = useSession();
     const [imagesState, setImages] = useState([]);
     const [PCComponentState, setPCComponent] = useState( {
@@ -30,6 +32,13 @@ const PCComponentForm = () => {
         postFormData( "http://localhost:8080/bazar/component",
                       formData );
     };
+
+    useEffect( () => {
+        if(id) {
+            getData("http://localhost:8080/bazar/component/" + id)
+                .then( data => setPCComponent(data));
+        }
+    },[id])
 
     useEffect(() =>{
         if(session.data) 
