@@ -8,6 +8,7 @@ const PCComponentForm = () => {
     const {id} = useParams();
     const {session, setSession} = useSession();
     const [imagesState, setImages] = useState([]);
+    const [imagesURLState, setImagesURL] = useState([]);
     const [PCComponentState, setPCComponent] = useState( {
         name: "",
         category: "",
@@ -35,8 +36,18 @@ const PCComponentForm = () => {
 
     useEffect( () => {
         if(id) {
-            getData("http://localhost:8080/bazar/component/" + id)
-                .then( data => setPCComponent(data));
+             getData("http://localhost:8080/bazar/component/" + id)
+                .then( (data) => {  
+                    setPCComponent(data);
+                    setImages( (prevImage) => [...prevImage, data.imageFile01]);
+                    setImages( (prevImage) => [...prevImage, data.imageFile02]);
+                    setImages( (prevImage) => [...prevImage, data.imageFile03]);
+                    console.log(typeof data.imageFile01)
+                    setImagesURL( (image) => [ ...image, `data:image/jpeg;base64,${data.imageFile01}`]);
+                    setImagesURL( (image) => [ ...image, `data:image/jpeg;base64,${data.imageFile02}`]);
+                    setImagesURL( (image) => [ ...image, `data:image/jpeg;base64,${data.imageFile03}`]);
+
+                });
         }
     },[id])
 
@@ -103,38 +114,66 @@ const PCComponentForm = () => {
                 </div>
 
                 {/*Load image 01 input*/}
-                <div className="mb-3">               
+                <div className="mb-3">
+                    {imagesState[0] ? <img src={imagesURLState[0]} alt="image preview" class="img-fluid"/>
+                                    : <img src="/icons/imageIcon.png" alt="image preview" class="img-fluid"/> }
+                    <br/>
                     <label htmlFor="image01" className="form-label">
                         Nahrát 1. fotku: 
                     </label>
                     <input  type="file"
                             className="form-control"
                             id="image01"
-                            onChange={ (e) => { setImages( (prevImage) => [...prevImage, e.target.files[0]])}}
-                    />
+                            onChange={ (e) => { 
+                                if(id) {
+                                    setImages( (prevImage) => { 
+                                        const updateImages = [...prevImage];
+                                        updateImages[0] = e.target.files[0];
+                                        return updateImages;
+                                    });
+                                    setImagesURL( (image) => {
+                                        const updateImages = [...image];
+                                        updateImages[0] = URL.createObjectURL(e.target.files[0]);
+                                        return updateImages;
+                                    })
+                                } else {
+                                    setImages( (prevImage) => [...prevImage, e.target.files[0]]);
+                                    setImagesURL( (image) => [ ...image, URL.createObjectURL(e.target.files[0])]); }}
+                                }
+                    />                  
                 </div>
 
                 {/*Load image 02 input*/}
-                <div className="mb-3">               
+                <div className="mb-3">
+                    {imagesState[1] ? <img src={imagesURLState[1]} alt="image preview" class="img-fluid"/>
+                                    : <img src="/icons/imageIcon.png" alt="image preview" class="img-fluid"/>}        
+                    <br/>       
                     <label htmlFor="image02" className="form-label">
                         Nahrát 2. fotku: 
                     </label>
                     <input  type="file"
                             className="form-control"
                             id="image02"
-                            onChange={ (e) => { setImages( (prevImage) => [...prevImage, e.target.files[0]])}}
+                            onChange={ (e) => { setImages( (prevImage) => [...prevImage, e.target.files[0]])
+                                                setImagesURL( (image) => [ ...image, URL.createObjectURL(e.target.files[0])])
+                            }}
                     />
                 </div>
 
                 {/*Load image 03 input*/}
-                <div className="mb-3">               
+                <div className="mb-3">       
+                    {imagesState[2] ? <img src={imagesURLState[2]} alt="image preview" class="img-fluid"/>
+                                    : <img src="/icons/imageIcon.png" alt="image preview" class="img-fluid"/>}       
+                    <br/> 
                     <label htmlFor="image03" className="form-label">
                         Nahrát 3. fotku: 
                     </label>
                     <input  type="file"
                             className="form-control"
                             id="image03"
-                            onChange={ (e) => { setImages( (prevImage) => [...prevImage, e.target.files[0]])}}/>
+                            onChange={ (e) => { setImages( (prevImage) => [...prevImage, e.target.files[0]])
+                                                setImagesURL( (image) => [ ...image, URL.createObjectURL(e.target.files[0])])
+                            }}/>
                 </div>
 
                 {/*Button to post form to server*/}
