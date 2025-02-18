@@ -15,7 +15,7 @@ function handleFetch( url, options) {
 export function deleteData(url) {
 
     const options = {
-        method: "DELETE",
+        method: "DELETE"
     }
 
     return handleFetch(url, options);
