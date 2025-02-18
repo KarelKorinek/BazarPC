@@ -56,7 +56,11 @@ public interface ComponentService {
      * @param componentDTO  updated PC component data
      * @return              edited PC component data
      */
-    ComponentDTO updateComponent(Long Id, ComponentDTO componentDTO);
+    ComponentDTO updateComponent(Long Id,
+                                 ComponentDTO componentDTO,
+                                 MultipartFile image01,
+                                 MultipartFile image02,
+                                 MultipartFile image03);
 
     /**
      *

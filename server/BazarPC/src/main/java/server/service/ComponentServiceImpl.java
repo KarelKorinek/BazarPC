@@ -215,8 +215,21 @@ public class ComponentServiceImpl implements ComponentService{
     }
 
     @Override
-    public ComponentDTO updateComponent(Long Id, ComponentDTO componentDTO) {
+    public ComponentDTO updateComponent( Long Id,
+                                         ComponentDTO componentDTO,
+                                         MultipartFile image01,
+                                         MultipartFile image02,
+                                         MultipartFile image03) {
 
+        // delete images
+        fileStorageService.deleteFile(componentDTO.getImageName01());
+        fileStorageService.deleteFile(componentDTO.getImageName02());
+        fileStorageService.deleteFile(componentDTO.getImageName03());
+
+        // save images
+        componentDTO.setImageName01( saveImage(image01) );
+        componentDTO.setImageName02( saveImage(image02) );
+        componentDTO.setImageName03( saveImage(image03) );
 
         // search PC component in database if exists
         ComponentEntity componentEntity = getComponentFromDb(Id);
@@ -237,7 +250,15 @@ public class ComponentServiceImpl implements ComponentService{
 
     @Override
     public void removeComponent(Long Id) {
+
+        ComponentEntity componentEntity = getComponentFromDb(Id);
+
+        // delete images
+        fileStorageService.deleteFile(componentEntity.getImageName01());
+        fileStorageService.deleteFile(componentEntity.getImageName02());
+        fileStorageService.deleteFile(componentEntity.getImageName03());
+
         // remove PC component in database
-        componentRepository.delete( getComponentFromDb(Id));
+        componentRepository.delete( componentEntity);
     }
 }

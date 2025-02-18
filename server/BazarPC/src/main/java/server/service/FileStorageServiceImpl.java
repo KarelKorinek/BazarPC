@@ -49,7 +49,9 @@ public class FileStorageServiceImpl implements FileStorageService {
             // validate image extension
             if(  (fileExtension.equalsIgnoreCase("jpeg"))
                ||(fileExtension.equalsIgnoreCase("jpg"))
-               ||(fileExtension.equalsIgnoreCase("webp")) ) {
+               ||(fileExtension.equalsIgnoreCase("webp"))
+               ||(fileExtension.equalsIgnoreCase("png"))) {
+
 
                 // obtain unique identifier for image
                 String fileName = UUID.randomUUID() + "." + fileExtension;
@@ -76,5 +78,15 @@ public class FileStorageServiceImpl implements FileStorageService {
 
         // return file bytes
         return Files.readAllBytes(filePath);
+    }
+
+    @Override
+    public void deleteFile(String filename) {
+
+        try {
+            Files.deleteIfExists(this.rootLocation.resolve(filename));
+        } catch (IOException e) {
+            System.err.println("File deletion error: " + e.getMessage());
+        }
     }
 }

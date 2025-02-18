@@ -84,10 +84,14 @@ public class ComponentController {
      * @return                      updated PC component from database
      */
     @Secured("ROLE_USER")
-    @PutMapping("/component/{Id}")
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ComponentDTO updateComponent(@PathVariable Long Id, @RequestBody ComponentDTO updatedComponentDTO) {
-        return componentService.updateComponent(Id, updatedComponentDTO);
+    @PutMapping(value = "/component/{Id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ComponentDTO updateComponent( @RequestPart("image01") MultipartFile image01,
+                                         @RequestPart("image02") MultipartFile image02,
+                                         @RequestPart("image03") MultipartFile image03,
+                                         @RequestPart("data") ComponentDTO updatedComponentDTO,
+                                         @PathVariable Long Id) {
+
+        return componentService.updateComponent(Id, updatedComponentDTO, image01, image02, image03);
     }
 
     /**

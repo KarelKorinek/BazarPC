@@ -19,4 +19,6 @@ public interface FileStorageService {
                     FileType fileType) throws IOException;
 
     byte[] getFile(String fileName) throws IOException;
+
+    void deleteFile(String filename);
 }
