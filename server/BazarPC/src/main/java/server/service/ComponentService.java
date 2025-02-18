@@ -17,9 +17,7 @@ public interface ComponentService {
      * @return              added data to database
      */
     ComponentDTO addComponent( ComponentDTO componentDTO,
-                               MultipartFile image01,
-                               MultipartFile image02,
-                               MultipartFile image03);
+                               List<MultipartFile> images);
 
     /**
      *
@@ -58,9 +56,7 @@ public interface ComponentService {
      */
     ComponentDTO updateComponent(Long Id,
                                  ComponentDTO componentDTO,
-                                 MultipartFile image01,
-                                 MultipartFile image02,
-                                 MultipartFile image03);
+                                 List<MultipartFile> images);
 
     /**
      *

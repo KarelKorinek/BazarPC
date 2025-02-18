@@ -40,6 +40,9 @@ public class FileStorageServiceImpl implements FileStorageService {
     public String saveFile(MultipartFile file,
                            FileType fileType) throws IOException {
 
+        // if there is no file return null
+        if(file.isEmpty()) return null;
+
         // read out file extension
         String fileExtension = getFileExtension(file.getOriginalFilename());
 
@@ -84,7 +87,7 @@ public class FileStorageServiceImpl implements FileStorageService {
     public void deleteFile(String filename) {
 
         try {
-            Files.deleteIfExists(this.rootLocation.resolve(filename));
+                Files.deleteIfExists(this.rootLocation.resolve(filename));
         } catch (IOException e) {
             System.err.println("File deletion error: " + e.getMessage());
         }

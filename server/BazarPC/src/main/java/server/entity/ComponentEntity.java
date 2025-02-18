@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity(name = "component")
 @Getter
@@ -28,9 +29,5 @@ public class ComponentEntity {
 
     private Long userId;
 
-    private String imageName01;
-
-    private String imageName02;
-
-    private String imageName03;
+    private List<String> imageNames;
 }

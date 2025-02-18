@@ -32,12 +32,10 @@ public class ComponentController {
      */
     @Secured("ROLE_USER")
     @PostMapping(value = "/component", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ComponentDTO addComponent( @RequestPart("image01") MultipartFile image01,
-                                      @RequestPart("image02") MultipartFile image02,
-                                      @RequestPart("image03") MultipartFile image03,
+    public ComponentDTO addComponent( @RequestPart("images") List<MultipartFile> images,
                                       @RequestPart("data") ComponentDTO newComponentDTO) {
 
-        return componentService.addComponent(newComponentDTO, image01, image02, image03);
+        return componentService.addComponent(newComponentDTO, images);
     }
 
     /**
@@ -85,13 +83,11 @@ public class ComponentController {
      */
     @Secured("ROLE_USER")
     @PutMapping(value = "/component/{Id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ComponentDTO updateComponent( @RequestPart("image01") MultipartFile image01,
-                                         @RequestPart("image02") MultipartFile image02,
-                                         @RequestPart("image03") MultipartFile image03,
+    public ComponentDTO updateComponent( @RequestPart(value = "images") List<MultipartFile> images,
                                          @RequestPart("data") ComponentDTO updatedComponentDTO,
                                          @PathVariable Long Id) {
 
-        return componentService.updateComponent(Id, updatedComponentDTO, image01, image02, image03);
+        return componentService.updateComponent(Id, updatedComponentDTO, images);
     }
 
     /**

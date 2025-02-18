@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data // @Data bundles @ToString, @Getter, @Setter and more...
 @AllArgsConstructor
@@ -29,15 +30,8 @@ public class ComponentDTO {
 
     private UserDTO userDetail;
 
-    private String imageName01;
+    private List<String> imageNames;
 
-    private String imageName02;
+    private List<byte[]> imageFiles;
 
-    private String imageName03;
-
-    private byte[] imageFile01;
-
-    private byte[] imageFile02;
-
-    private byte[] imageFile03;
 }

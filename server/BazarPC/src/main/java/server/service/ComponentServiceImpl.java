@@ -45,10 +45,15 @@ public class ComponentServiceImpl implements ComponentService{
            // set user detail
            componentDTO.setUserDetail(userMapper.toDTONoPassword(userEntity));
 
+           List<byte[]> imageFiles = new ArrayList<>();
+
+           for(String imageNames : componentDTO.getImageNames()) {
+               // read files from storage and store it in DTO
+               imageFiles.add( getImage(imageNames));
+           }
+
            // get images from storage
-           componentDTO.setImageFile01(getImage(componentDTO.getImageName01()));
-           componentDTO.setImageFile02(getImage(componentDTO.getImageName02()));
-           componentDTO.setImageFile03(getImage(componentDTO.getImageName03()));
+           componentDTO.setImageFiles(imageFiles);
        } catch (RuntimeException e) {
            System.err.println("Error: " + e.getMessage());
            throw e;
@@ -113,21 +118,22 @@ public class ComponentServiceImpl implements ComponentService{
      *  The service method add a new PC component to database
      *
      * @param componentDTO  PC component data to be added to database
-     * @param image01       image 01 to be stored
-     * @param image02       image 02 to be stored
-     * @param image03       image 03 to be stored
+     * @param images        list of images
+     *
      * @return              PC component data which has been added to database
      */
     @Override
     public ComponentDTO addComponent(ComponentDTO componentDTO,
-                                     MultipartFile image01,
-                                     MultipartFile image02,
-                                     MultipartFile image03) {
+                                     List<MultipartFile> images) {
+
+        List<String> imageNames = new ArrayList<>();
 
         // save images
-        componentDTO.setImageName01( saveImage(image01) );
-        componentDTO.setImageName02( saveImage(image02) );
-        componentDTO.setImageName03( saveImage(image03) );
+        for(MultipartFile image : images) {
+            imageNames.add(saveImage(image));
+        }
+
+        componentDTO.setImageNames( imageNames );
 
         // prepare data for saving to database, convert DTO to entity
         ComponentEntity componentEntity = componentMapper.toEntity(componentDTO);
@@ -217,19 +223,23 @@ public class ComponentServiceImpl implements ComponentService{
     @Override
     public ComponentDTO updateComponent( Long Id,
                                          ComponentDTO componentDTO,
-                                         MultipartFile image01,
-                                         MultipartFile image02,
-                                         MultipartFile image03) {
+                                         List<MultipartFile> images) {
+
+        List<String> imageNames = componentDTO.getImageNames();
 
         // delete images
-        fileStorageService.deleteFile(componentDTO.getImageName01());
-        fileStorageService.deleteFile(componentDTO.getImageName02());
-        fileStorageService.deleteFile(componentDTO.getImageName03());
+        for(String imageName : imageNames) {
+            fileStorageService.deleteFile(imageName);
+        }
+
+        imageNames.clear();
 
         // save images
-        componentDTO.setImageName01( saveImage(image01) );
-        componentDTO.setImageName02( saveImage(image02) );
-        componentDTO.setImageName03( saveImage(image03) );
+        for(MultipartFile image : images) {
+            imageNames.add(saveImage(image));
+        }
+
+        componentDTO.setImageNames( imageNames );
 
         // search PC component in database if exists
         ComponentEntity componentEntity = getComponentFromDb(Id);
@@ -254,9 +264,9 @@ public class ComponentServiceImpl implements ComponentService{
         ComponentEntity componentEntity = getComponentFromDb(Id);
 
         // delete images
-        fileStorageService.deleteFile(componentEntity.getImageName01());
-        fileStorageService.deleteFile(componentEntity.getImageName02());
-        fileStorageService.deleteFile(componentEntity.getImageName03());
+        for(String imageName : componentEntity.getImageNames()) {
+            fileStorageService.deleteFile(imageName);
+        }
 
         // remove PC component in database
         componentRepository.delete( componentEntity);
