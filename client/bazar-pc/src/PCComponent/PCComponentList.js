@@ -45,7 +45,7 @@ const PCComponentList = () => {
 
                             <td>
                                 <Link to={"/bazar/detail/" + item.id}>
-                                    <img src={`data:image/jpeg;base64,${item.imageFile01}`} className="img"></img>
+                                    <img src={`data:image/jpeg;base64,${item.imageFiles[0]}`} className="img"></img>
                                 </Link>
                             </td>
                             <td>

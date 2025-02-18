@@ -5,7 +5,7 @@ import { getData} from "../utilities/fetch"
 const PCComponentDetail = () => {
 
     const {id} = useParams();
-    const [PCComponent, setPcComponent] = useState({});
+    const [PCComponent, setPcComponent] = useState(null);
     
     useEffect( () => {
         getData("http://localhost:8080/bazar/component/" + id)
@@ -24,20 +24,25 @@ const PCComponentDetail = () => {
             </h1>
             <div id="ImageCarousel" className="carousel slide pt-5" >
                 <div className="carousel-indicators">
-                    <button type="button" data-bs-target="#ImageCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#ImageCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#ImageCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    { PCComponent.imageFiles.map( (image, index) => (
+                        (index === 0) ?                     
+                            <button type="button" data-bs-target="#ImageCarousel" data-bs-slide-to={index} className="active" aria-current="true" aria-label={`Slide ,${index}`}></button>
+                            :
+                            <button type="button" data-bs-target="#ImageCarousel" data-bs-slide-to={index} className="active" aria-current="true" aria-label={`Slide ,${index}`}></button>
+                    ))}
                 </div>
                 <div className="carousel-inner">
-                    <div className="carousel-item active">
-                        <img className="d-block w-100" src={`data:image/jpeg;base64,${PCComponent.imageFile01}`}></img>
-                    </div>
-                    <div className="carousel-item">
-                        <img className="d-block w-100" src={`data:image/jpeg;base64,${PCComponent.imageFile02}`}></img>
-                    </div>
-                    <div className="carousel-item">
-                        <img className="d-block w-100" src={`data:image/jpeg;base64,${PCComponent.imageFile03}`}></img>
-                    </div>
+                    { PCComponent.imageFiles.map( (image, index) => (
+                        (index === 0) ?                     
+                            <div key={index} className="carousel-item active">
+                                <img className="d-block w-100" src={`data:image/jpeg;base64,${image}`}></img>
+                            </div>
+                            :
+                            <div key={index} className="carousel-item">
+                                <img className="d-block w-100" src={`data:image/jpeg;base64,${image}`}></img>
+                            </div>                           
+                        
+                    ))}
                 </div>
                 <button className="carousel-control-prev" type="button" data-bs-target="#ImageCarousel" data-bs-slide="prev">
                     <span className="carousel-control-prev-icon" aria-hidden="true"></span>

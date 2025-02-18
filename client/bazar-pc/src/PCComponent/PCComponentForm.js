@@ -27,10 +27,10 @@ const PCComponentForm = () => {
         // insert PC Component state to data variable and set content-type to application/json 
         const data = new Blob([JSON.stringify(PCComponentState)], { type: 'application/json' });
         
+        formData.append("images", imagesState[0]);
+        formData.append("images", imagesState[1]);
+        formData.append("images", imagesState[2]);
         formData.append("data", data);
-        formData.append("image01", imagesState[0]);
-        formData.append("image02", imagesState[1]);
-        formData.append("image03", imagesState[2]);
         
         if(id) { 
                 putFormData( "http://localhost:8080/bazar/component/" + id,
@@ -53,13 +53,16 @@ const PCComponentForm = () => {
                 .then( (data) => {  
                     setPCComponent(data);
                     // Load images from server, check if imageFile is not null or undefined and convert them to File from base64 format
-                    setImages( (prevImage) => [...prevImage, data.imageFile01 ? base64ToFile(data.imageFile01, data.imageName01) : null]);
-                    setImages( (prevImage) => [...prevImage, data.imageFile02 ? base64ToFile(data.imageFile02, data.imageName02) : null]);
-                    setImages( (prevImage) => [...prevImage, data.imageFile03 ? base64ToFile(data.imageFile03, data.imageName03) : null]);
+                    if(data.imageFiles) 
+                        data.imageFiles.map( (imageFile, index) => (
+                            setImages( (prevImage) => [...prevImage, base64ToFile(imageFile, data.imageNames[index])])
+                        ));
+
                     // Convert images to URL
-                    setImagesURL( (image) => [ ...image, `data:image/jpeg;base64,${data.imageFile01}`]);
-                    setImagesURL( (image) => [ ...image, `data:image/jpeg;base64,${data.imageFile02}`]);
-                    setImagesURL( (image) => [ ...image, `data:image/jpeg;base64,${data.imageFile03}`]);
+                    if(data.imageFiles)
+                        data.imageFiles.map( (imageFile) => (
+                            setImagesURL( (image) => [ ...image, `data:image/jpeg;base64,${imageFile}`])
+                    ))
                 });
             dataLoaded.current = true;
         }
