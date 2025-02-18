@@ -26,6 +26,16 @@ export function getData(url) {
     return handleFetch(url);
 }
 
+export function putFormData(url, data) {
+
+    const options = {
+        method: "PUT",
+        body: data          
+    }
+
+    return handleFetch(url, options);
+}
+
 export function postFormData(url, data) {
 
     const options = {
