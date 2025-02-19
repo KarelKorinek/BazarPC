@@ -24,9 +24,7 @@ public class ComponentController {
      *  This action is allowed just to logged users.
      *
      * @param newComponentDTO  data to save to database
-     * @param image01          image 01 to be stored
-     * @param image02          image 02 to be stored
-     * @param image03          image 03 to be stored
+     * @param images           a list of advertisement images to be stored on server
      *
      * @return                 saved data to database
      */
@@ -79,6 +77,7 @@ public class ComponentController {
      *
      * @param Id                    Id of PC compoment to be updated
      * @param updatedComponentDTO   PC component data that update existing PC component in database
+     * @param images                a list of advertisement images to be updated on server
      * @return                      updated PC component from database
      */
     @Secured("ROLE_USER")

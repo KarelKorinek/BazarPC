@@ -73,6 +73,13 @@ public class FileStorageServiceImpl implements FileStorageService {
         throw new IOException("Unsupported file type");
     }
 
+    /**
+     *  Get file from server
+     *
+     * @param fileName          name of file
+     * @return                  binary data of file
+     * @throws IOException      error while getting file from server
+     */
     @Override
     public byte[] getFile(String fileName) throws IOException {
 
@@ -83,11 +90,17 @@ public class FileStorageServiceImpl implements FileStorageService {
         return Files.readAllBytes(filePath);
     }
 
+    /**
+     *  Delete file from server
+     *
+     * @param filename          name of file
+     */
     @Override
     public void deleteFile(String filename) {
 
         try {
-                Files.deleteIfExists(this.rootLocation.resolve(filename));
+            // delete file from server if exists
+            Files.deleteIfExists(this.rootLocation.resolve(filename));
         } catch (IOException e) {
             System.err.println("File deletion error: " + e.getMessage());
         }

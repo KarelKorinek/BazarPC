@@ -118,7 +118,7 @@ public class ComponentServiceImpl implements ComponentService{
      *  The service method add a new PC component to database
      *
      * @param componentDTO  PC component data to be added to database
-     * @param images        list of images
+     * @param images        a list of advertisement images to be stored on server
      *
      * @return              PC component data which has been added to database
      */
@@ -133,6 +133,7 @@ public class ComponentServiceImpl implements ComponentService{
             imageNames.add(saveImage(image));
         }
 
+        // store image names to DTO
         componentDTO.setImageNames( imageNames );
 
         // prepare data for saving to database, convert DTO to entity
@@ -220,11 +221,21 @@ public class ComponentServiceImpl implements ComponentService{
         return componentDTOs;
     }
 
+    /**
+     *
+     *  Update PC component stored on server
+     *
+     * @param Id            PC component Id
+     * @param componentDTO  updated PC component data
+     * @param images        updated PC component images
+     * @return              updated PC component DTO
+     */
     @Override
     public ComponentDTO updateComponent( Long Id,
                                          ComponentDTO componentDTO,
                                          List<MultipartFile> images) {
 
+        // read out image names from server
         List<String> imageNames = componentDTO.getImageNames();
 
         // delete images
@@ -232,6 +243,7 @@ public class ComponentServiceImpl implements ComponentService{
             fileStorageService.deleteFile(imageName);
         }
 
+        // delete image names from the local list
         imageNames.clear();
 
         // save images
@@ -239,6 +251,7 @@ public class ComponentServiceImpl implements ComponentService{
             imageNames.add(saveImage(image));
         }
 
+        // set new image names
         componentDTO.setImageNames( imageNames );
 
         // search PC component in database if exists
@@ -258,9 +271,16 @@ public class ComponentServiceImpl implements ComponentService{
         return componentMapper.toDTO(componentRepository.getReferenceById(Id));
     }
 
+    /**
+     *
+     *  Remove PC component from database
+     *
+     * @param Id            PC component Id
+     */
     @Override
     public void removeComponent(Long Id) {
 
+        // get PC component entity from database
         ComponentEntity componentEntity = getComponentFromDb(Id);
 
         // delete images
