@@ -1,6 +1,9 @@
 package server.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import server.dto.ComponentDTO;
@@ -150,12 +153,18 @@ public class ComponentServiceImpl implements ComponentService{
      * @return          the list of PC components
      */
     @Override
-    public List<ComponentDTO> getAllComponents() {
+    public Page<ComponentDTO> getAllComponents(int pageNumber, int pageSize) {
+
+        // Create page request with certain page number and page size
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
 
         // get all PC components from database
-        List<ComponentEntity> componentEntities = componentRepository.findAll();
+        Page<ComponentEntity> componentEntitiesPage = componentRepository.findAll(pageRequest);
 
-        // Prepare a list for component DTOs
+        // Convert the page to the list of PC components
+        List<ComponentEntity> componentEntities = componentEntitiesPage.getContent();
+
+        // Prepare empty list of PC component DTOs
         List<ComponentDTO> componentDTOs = new ArrayList<>();
 
         // convert entities to DTOs
@@ -170,8 +179,8 @@ public class ComponentServiceImpl implements ComponentService{
             componentDTOs.add(componentDTOComplete);
         }
 
-        // return the list of component DTOs
-        return componentDTOs;
+        // return the list of component DTOs in page
+        return new PageImpl<>(componentDTOs,componentEntitiesPage.getPageable(), componentEntitiesPage.getTotalElements());
     }
 
     /**
@@ -199,16 +208,19 @@ public class ComponentServiceImpl implements ComponentService{
      * @return              the PC component list that belongs to user
      */
     @Override
-    public List<ComponentDTO> getUserComponents(Long userId) {
+    public Page<ComponentDTO> getUserComponents(Long userId, int pageNumber, int pageSize) {
+
+        // Create page request with certain page number and page size
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
 
         // read out PC component list associated to specific user
-        List<ComponentEntity> componentEntities = componentRepository.findByUserId(userId);
+        Page<ComponentEntity> componentEntitiesPage = componentRepository.findByUserId(userId, pageRequest);
 
         // prepare empty list of component DTOs
         List<ComponentDTO> componentDTOs = new ArrayList<>();
 
         // convert PC component entities to PC component DTOs
-        for(ComponentEntity componentEntity : componentEntities) {
+        for(ComponentEntity componentEntity : componentEntitiesPage) {
 
             ComponentDTO componentDTO = componentMapper.toDTO(componentEntity);
 
@@ -218,7 +230,7 @@ public class ComponentServiceImpl implements ComponentService{
             componentDTOs.add(componentDTOComplete);
         }
 
-        return componentDTOs;
+        return new PageImpl<>(componentDTOs,componentEntitiesPage.getPageable(), componentEntitiesPage.getTotalElements());
     }
 
     /**

@@ -2,6 +2,7 @@ package server.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.annotation.Secured;
@@ -43,8 +44,9 @@ public class ComponentController {
      * @return              a list of PC components from database
      */
     @GetMapping("/components")
-    public List<ComponentDTO> getAllComponents() {
-        return componentService.getAllComponents();
+    public Page<ComponentDTO> getAllComponents(@RequestParam(defaultValue = "0") int pageNumber,
+                                               @RequestParam(defaultValue = "10") int pageSize ) {
+        return componentService.getAllComponents(   pageNumber, pageSize);
     }
 
     /**
@@ -68,7 +70,10 @@ public class ComponentController {
      */
     @Secured("ROLE_USER")
     @GetMapping("/components/{userId}")
-    public List<ComponentDTO> getComponents(@PathVariable Long userId) { return  componentService.getUserComponents(userId); }
+    public Page<ComponentDTO> getComponents(@PathVariable Long userId,
+                                            @RequestParam(defaultValue = "0") int pageNumber,
+                                            @RequestParam(defaultValue = "10") int pageSize ) {
+        return  componentService.getUserComponents(userId, pageNumber, pageSize); }
 
     /**
      *

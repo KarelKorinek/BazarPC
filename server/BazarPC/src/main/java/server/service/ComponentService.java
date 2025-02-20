@@ -1,5 +1,6 @@
 package server.service;
 
+import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
 import server.dto.ComponentDTO;
 
@@ -11,9 +12,7 @@ public interface ComponentService {
      *  Add new PC component to database
      *
      * @param componentDTO  data to be added to database
-     * @param image01       image 01 to be stored
-     * @param image02       image 02 to be stored
-     * @param image03       image 03 to be stored
+     * @param images        a lit of images to be stored in server
      * @return              added data to database
      */
     ComponentDTO addComponent( ComponentDTO componentDTO,
@@ -25,7 +24,8 @@ public interface ComponentService {
      *
      * @return              list of PC components
      */
-    List<ComponentDTO> getAllComponents();
+    Page<ComponentDTO> getAllComponents( int pageNumber,
+                                         int pageSize);
 
     /**
      *
@@ -43,7 +43,9 @@ public interface ComponentService {
      * @param userId        User ID for which the component list should be found
      * @return              the PC component list that belongs to user
      */
-    List<ComponentDTO> getUserComponents(Long userId);
+    Page<ComponentDTO> getUserComponents(Long userId,
+                                         int pageNumber,
+                                         int pageSize);
 
     /**
      *
