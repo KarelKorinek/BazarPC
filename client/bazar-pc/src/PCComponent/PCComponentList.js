@@ -2,21 +2,27 @@ import React, { useEffect, useState } from "react"
 import {getData, deleteData} from "../utilities/fetch"
 import "../styles.css"
 import {Link, useNavigate, useParams} from "react-router-dom"
+import ReactPaginate from "react-paginate"
 
 const PCComponentList = () => {
 
     const navigate = useNavigate();
     const {userId} = useParams();
     const [ PcComponentsState, setPcComponents] = useState(null);
+    const [ pageNumberState, setPageNumber] = useState(0);
+
+    // Pagination parameters
+    const pageSize = 10;
+    const PAGE_QUERY = `pageNumber=${pageNumberState}&pageSize=${pageSize}`;
 
     useEffect( () => {
         userId ?
-                    getData("http://localhost:8080/bazar/components/" + userId)
+                    getData(`http://localhost:8080/bazar/components/${userId}?${PAGE_QUERY}`)
                         .then( data => setPcComponents(data))
                 :   
-                    getData("http://localhost:8080/bazar/components")
+                    getData(`http://localhost:8080/bazar/components?${PAGE_QUERY}`)
                         .then(data => setPcComponents(data))
-    },[]);
+    },[pageNumberState]);
 
     const deletePCComponent = (id) => {
         deleteData("http://localhost:8080/bazar/component/" + id);
@@ -40,7 +46,7 @@ const PCComponentList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    { PcComponentsState.map( (item) => (
+                    { PcComponentsState.content.map( (item) => (
                         <tr key={item.id}> 
 
                             <td>
@@ -71,6 +77,22 @@ const PCComponentList = () => {
                     ))}
                 </tbody>
             </table>
+
+            {/* Pagination */}
+            <ReactPaginate 
+                breakLabel              = {"..."}
+                previousLabel           = {"< Předchozí"}
+                nextLabel               = {"Další >"}
+                onPageChange            = {({selected}) =>  setPageNumber(selected)}
+                containerClassName      = {"pagination d-flex justify-content-center"}
+                previousClassName       = {"page-item"}
+                previousLinkClassName   = {"page-link"}
+                nextClassName           = {"page-item"}
+                nextLinkClassName       = {"page-link"}
+                pageLinkClassName       = {"page-link"}
+                activeClassName         = {"active"}
+                pageCount               = {PcComponentsState.totalPages}
+            />
         </div>
     )
 }
