@@ -27,9 +27,10 @@ const PCComponentForm = () => {
         // insert PC Component state to data variable and set content-type to application/json 
         const data = new Blob([JSON.stringify(PCComponentState)], { type: 'application/json' });
         
-        formData.append("images", imagesState[0]);
-        formData.append("images", imagesState[1]);
-        formData.append("images", imagesState[2]);
+        imagesState.map((image) => {
+            formData.append("images", image);    
+        })
+
         formData.append("data", data);
         
         if(id) { 

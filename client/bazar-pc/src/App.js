@@ -15,6 +15,7 @@ import UserForm from "./user/UserForm";
 import LoginForm from "./user/LoginForm";
 import { useSession } from "./context/session";
 import { deleteData } from "./utilities/fetch";
+import CookieConsent from "./context/cookieConsent";
 
 export function App() {
 
@@ -83,6 +84,10 @@ export function App() {
             <Route path="user/account" element={<LoginForm />} />
           </Route>
         </Routes>
+      </div>
+
+      <div>
+        <CookieConsent />
       </div>
     </Router>
   );
