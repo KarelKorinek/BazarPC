@@ -3,6 +3,7 @@ import { getData, postFormData, putFormData } from "../utilities/fetch";
 import { base64ToFile } from "../utilities/base64"
 import { useSession } from "../context/session";
 import { useParams } from "react-router-dom";
+import { ComponentCategory} from "../constants/GlobalConstants";
 
 const PCComponentForm = () => {
 
@@ -13,7 +14,7 @@ const PCComponentForm = () => {
     const [imagesURLState, setImagesURL] = useState([]);
     const [PCComponentState, setPCComponent] = useState( {
         name: "",
-        category: "",
+        category: "počítače",
         price: "",
         description: "",
         publishedDate: "",
@@ -99,13 +100,21 @@ const PCComponentForm = () => {
                     <label htmlFor="category" className="form-label">
                         Kategorie: 
                     </label>
-                    <input  type="text"
+                    <select type="text"
                             required
                             className="form-control"
                             id="category" 
-                            value={PCComponentState.category} 
-                            onChange={ (e) => { setPCComponent( {...PCComponentState, category: e.target.value})}}
-                    />
+                            value={ComponentCategory[PCComponentState.category]} 
+                            onChange={ (e) => {     const selectedValue = e.target.value;
+                                                    const selectedKey = Object.keys(ComponentCategory).find((key) => ComponentCategory[key] === selectedValue);
+                                                    setPCComponent( {...PCComponentState, category: selectedKey})}} 
+                    >
+                        {Object.entries(ComponentCategory).map( ([key, value]) => (
+                            <option key={key} value={value}>
+                                {value}
+                            </option>
+                        ))}
+                    </select>
                 </div>
 
                  {/*Price input*/}
