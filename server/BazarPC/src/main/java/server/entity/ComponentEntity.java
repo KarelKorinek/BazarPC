@@ -1,10 +1,10 @@
 package server.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.Setter;
+import server.constant.ComponentCategory;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -19,15 +19,14 @@ public class ComponentEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @Column(nullable = false)
     private String name;
 
-    @NotNull
-    private String category;
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private ComponentCategory category;
 
-    @NotNull
+    @Column(nullable = false)
     @Positive
     private BigDecimal price;
 
@@ -35,9 +34,9 @@ public class ComponentEntity {
 
     private LocalDate publishedDate;
 
-    @NotNull
+    @Column(nullable = false)
     private Long userId;
 
-    @NotNull
+    @Column(nullable = false)
     private List<String> imageNames;
 }

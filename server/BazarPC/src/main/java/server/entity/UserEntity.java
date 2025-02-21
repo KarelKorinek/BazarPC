@@ -1,13 +1,6 @@
 package server.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -26,26 +19,25 @@ public class UserEntity implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @Column(nullable = false)
     private String firstName;
 
-    @NotNull
+    @Column(nullable = false)
     private String lastName;
 
-    @NotNull
+    @Column(nullable = false)
     private String city;
 
-    @NotNull
+    @Column(nullable = false)
     private String street;
 
-    @NotNull
+    @Column(nullable = false)
     private String zipCode;
 
-    @Email
+    @Column(nullable = false)
     private String email;
 
-    @NotBlank(message = "Insert user password")
-    @Size( min = 8, message= "The password has contain 8 characters at least")
+    @Column(nullable = false)
     private String password;
 
     @Override
