@@ -37,7 +37,7 @@ const PCComponentList = () => {
             <table className="table  centered-table table-hover" id="components-table">
                 <thead>
                     <tr>
-                        <th>Image</th>
+                        <th>Foto</th>
                         <th>Název</th>
                         <th>Cena</th>
                         {userId ? <th>Akce</th>

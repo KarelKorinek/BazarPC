@@ -37,7 +37,8 @@ const LoginForm = () => {
                     <label htmlFor="email" className="form-label">
                         e-mail: 
                     </label>
-                    <input  type="text"
+                    <input  type="email"
+                            required
                             className="form-control"
                             id="email"
                             value={userState.email}
@@ -51,6 +52,7 @@ const LoginForm = () => {
                         Heslo: 
                     </label>
                     <input  type="password"
+                            required
                             className="form-control"
                             id="password"
                             value={userState.password}

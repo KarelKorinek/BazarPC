@@ -86,7 +86,8 @@ const PCComponentForm = () => {
                     <label htmlFor="name" className="form-label">
                         Název:
                     </label>
-                    <input  className="form-control" 
+                    <input  className="form-control"
+                            required 
                             id="name" 
                             value={PCComponentState.name} 
                             onChange={ (e) => { setPCComponent( {...PCComponentState, name: e.target.value} ) } } 
@@ -99,6 +100,7 @@ const PCComponentForm = () => {
                         Kategorie: 
                     </label>
                     <input  type="text"
+                            required
                             className="form-control"
                             id="category" 
                             value={PCComponentState.category} 
@@ -112,6 +114,7 @@ const PCComponentForm = () => {
                         Cena: 
                     </label>
                     <input  type="number"
+                            required min={0}
                             className="form-control"
                             id="price"
                             value={PCComponentState.price}
@@ -159,6 +162,7 @@ const PCComponentForm = () => {
                         Nahrát fotku (max. 3): 
                     </label>
                     <input  type="file"
+                            required
                             className="form-control"
                             id="image01"
                             onChange={ (e) => { 

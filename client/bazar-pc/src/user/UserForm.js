@@ -39,6 +39,7 @@ const UserForm = () => {
                         Jméno:
                     </label>
                     <input  className="form-control" 
+                            required
                             id="firstName" 
                             value={userState.firstName} 
                             onChange={ (e) => { setUser( {...userState, firstName: e.target.value} ) } } 
@@ -51,6 +52,7 @@ const UserForm = () => {
                         Příjmení: 
                     </label>
                     <input  type="text"
+                            required
                             className="form-control"
                             id="lastName" 
                             value={userState.lastName} 
@@ -64,6 +66,7 @@ const UserForm = () => {
                         Obec: 
                     </label>
                     <input  type="text"
+                            required
                             className="form-control"
                             id="city"
                             value={userState.city}
@@ -77,6 +80,7 @@ const UserForm = () => {
                         Ulice: 
                     </label>
                     <input  type="text"
+                            required
                             className="form-control"
                             id="street"
                             value={userState.street}
@@ -90,6 +94,7 @@ const UserForm = () => {
                         PSČ: 
                     </label>
                     <input  type="text"
+                            required
                             className="form-control"
                             id="zipCode"
                             value={userState.zipCode}
@@ -102,7 +107,8 @@ const UserForm = () => {
                     <label htmlFor="email" className="form-label">
                         e-mail: 
                     </label>
-                    <input  type="text"
+                    <input  type="email"
+                            required
                             className="form-control"
                             id="email"
                             value={userState.email}
@@ -116,6 +122,7 @@ const UserForm = () => {
                         Heslo: 
                     </label>
                     <input  type="password"
+                            required minLength={8}
                             className="form-control"
                             id="password"
                             value={userState.password}
@@ -128,6 +135,7 @@ const UserForm = () => {
                         Potvrďte Heslo: 
                     </label>
                     <input  type="password"
+                            required minLength={8}
                             className="form-control"
                             id="confirmPassword"
                             value={userState.confirmPassword}
