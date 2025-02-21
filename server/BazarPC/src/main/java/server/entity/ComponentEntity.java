@@ -24,6 +24,8 @@ public class ComponentEntity {
 
     @NotNull
     private String category;
+    @Enumerated(EnumType.STRING)
+    private ComponentCategory category;
 
     @NotNull
     @Positive
