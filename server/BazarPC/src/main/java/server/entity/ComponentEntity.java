@@ -1,6 +1,8 @@
 package server.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,17 +19,23 @@ public class ComponentEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     private String name;
 
+    @NotNull
     private String category;
 
+    @NotNull
+    @Positive
     private BigDecimal price;
 
     private String description;
 
     private LocalDate publishedDate;
 
+    @NotNull
     private Long userId;
 
+    @NotNull
     private List<String> imageNames;
 }
