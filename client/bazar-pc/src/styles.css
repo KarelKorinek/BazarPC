@@ -22,3 +22,13 @@
 .custom-form-width {
     max-width: 600px;
 }
+
+.title-text {
+    font-size: 100px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    color: rgb(32, 48, 142);
+}
+
+.title-image {
+    border-radius: 20px;
+}

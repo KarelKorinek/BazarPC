@@ -36,6 +36,20 @@ const PCComponentList = () => {
     
     return (
         <div className="container-mt5">
+            { userId ? 
+                        <div className="container d-block mx-auto mt-5">
+                            <h1>Moje inzeráty: </h1>
+                        </div>
+                     :
+                        <div className="container d-block mx-auto mt-5">
+                            <div className="row">
+                                <div className="col">
+                                    <img src="icons/BazarPCLogo.webp" className="w-25 title-image"></img>
+                                    <h1 className="d-inline mx-5 title-text">PC bazar</h1>
+                                </div>
+                            </div>    
+                        </div>
+            }
             <table className="table  centered-table table-hover" id="components-table">
                 <thead>
                     <tr>

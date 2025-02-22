@@ -44,7 +44,7 @@ export function App() {
                                 <NavLink className="nav-link" to="bazar/component/create" end>Přidat inzerát</NavLink>
                               </li>
                               <li className="nav-item">
-                                <NavLink className="nav-link" to={`bazar/components/${session.data.id}`} end>Mé inzeráty</NavLink>
+                                <NavLink className="nav-link" to={`bazar/components/${session.data.id}`} end>Moje inzeráty</NavLink>
                               </li>
                               <li className="nav-item">
                                 <button className="nav-link " onClick={handleLogout}>Odhlásit se</button>
