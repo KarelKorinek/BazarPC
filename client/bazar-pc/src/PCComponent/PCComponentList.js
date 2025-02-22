@@ -27,7 +27,9 @@ const PCComponentList = () => {
     const deletePCComponent = (id) => {
         deleteData("http://localhost:8080/bazar/component/" + id);
         // update PC component list (remove deleted item according its id)
-        setPcComponents( prevList => prevList.filter(item => item.id !== id));
+        setPcComponents( prevPage => (  {...prevPage, 
+                                            content: prevPage.content.filter( item => item.id !== id) // remove deleted PC component from the list
+                                        }));
     }
 
     if(!PcComponentsState) return(<p>Načítám...</p>);

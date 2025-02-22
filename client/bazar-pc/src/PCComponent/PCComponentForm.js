@@ -2,11 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import { getData, postFormData, putFormData } from "../utilities/fetch";
 import { base64ToFile } from "../utilities/base64"
 import { useSession } from "../context/session";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ComponentCategory} from "../constants/GlobalConstants";
 
 const PCComponentForm = () => {
 
+    const navigate = useNavigate();
     const dataLoaded = useRef(false);
     const {id} = useParams();
     const {session, setSession} = useSession();
@@ -14,7 +15,7 @@ const PCComponentForm = () => {
     const [imagesURLState, setImagesURL] = useState([]);
     const [PCComponentState, setPCComponent] = useState( {
         name: "",
-        category: "počítače",
+        category: "COMPUTERS",
         price: "",
         description: "",
         publishedDate: "",
@@ -23,23 +24,31 @@ const PCComponentForm = () => {
 
     const handleSubmit = (e) => {
 
-        const formData = new FormData();
+        // check if at least one image has been uploaded
+        if(imagesState.length) {
+            const formData = new FormData();
 
-        // insert PC Component state to data variable and set content-type to application/json 
-        const data = new Blob([JSON.stringify(PCComponentState)], { type: 'application/json' });
-        
-        imagesState.map((image) => {
-            formData.append("images", image);    
-        })
+            // insert PC Component state to data variable and set content-type to application/json 
+            const data = new Blob([JSON.stringify(PCComponentState)], { type: 'application/json' });
+            
+            imagesState.map((image) => {
+                formData.append("images", image);    
+            })
 
-        formData.append("data", data);
-        
-        if(id) { 
-                putFormData( "http://localhost:8080/bazar/component/" + id,
-                            formData) 
+            formData.append("data", data);
+            
+            if(id) { 
+                    putFormData( "http://localhost:8080/bazar/component/" + id,
+                                formData) 
+            } else {
+                postFormData( "http://localhost:8080/bazar/component",
+                                formData ) 
+            }
+
+            // redirect to user components list
+            navigate("/bazar/components/" + session.data.id);
         } else {
-              postFormData( "http://localhost:8080/bazar/component",
-                             formData ) 
+            alert("Nahrajte alespoň jednu fotku!");
         }
     };
 
@@ -168,15 +177,16 @@ const PCComponentForm = () => {
                     </div>
                     <br/>
                     <label htmlFor="imageUpload" className="form-label">
-                        Nahrát fotku (max. 3): 
+                        Nahrát fotku: 
                     </label>
                     <input  type="file"
-                            required
                             className="form-control"
                             id="image01"
                             onChange={ (e) => { 
-                                setImages( (prevImage) => [...prevImage, e.target.files[0]]);
-                                setImagesURL( (image) => [ ...image, URL.createObjectURL(e.target.files[0])]); }}
+                                if(e.target.files[0]) {
+                                    setImages( (prevImage) => [...prevImage, e.target.files[0]] );
+                                    setImagesURL( (image) =>  [ ...image, URL.createObjectURL(e.target.files[0])] ); }}
+                                }
                     />                  
                 </div>
 
