@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState} from "react";
 import { getData } from "../utilities/fetch";
+import { BASE_URL } from "../constants/GlobalConstants";
 
 /**
  *      Create context for session
@@ -44,7 +45,7 @@ export const SessionProvider = ({children}) => {
 
     // get session data from server
     useEffect( () => {
-        getData( "http://localhost:8080/bazar/user/account")
+        getData( `${BASE_URL}/bazar/user/account`)
             .then( data => setSessionState( {
                 data,
                 status: "authenticated"

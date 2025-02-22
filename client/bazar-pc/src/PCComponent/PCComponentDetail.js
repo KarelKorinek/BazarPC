@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { getData} from "../utilities/fetch"
+import { BASE_URL } from "../constants/GlobalConstants";
 
 const PCComponentDetail = () => {
 
@@ -8,7 +9,7 @@ const PCComponentDetail = () => {
     const [PCComponent, setPcComponent] = useState(null);
     
     useEffect( () => {
-        getData("http://localhost:8080/bazar/component/" + id)
+        getData(`${BASE_URL}/bazar/component/` + id)
         .then(data => setPcComponent(data));
 
     }, []);

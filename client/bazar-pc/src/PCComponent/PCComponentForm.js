@@ -3,7 +3,7 @@ import { getData, postFormData, putFormData } from "../utilities/fetch";
 import { base64ToFile } from "../utilities/base64"
 import { useSession } from "../context/session";
 import { useNavigate, useParams } from "react-router-dom";
-import { ComponentCategory} from "../constants/GlobalConstants";
+import { BASE_URL, ComponentCategory} from "../constants/GlobalConstants";
 
 const PCComponentForm = () => {
 
@@ -38,10 +38,10 @@ const PCComponentForm = () => {
             formData.append("data", data);
             
             if(id) { 
-                    putFormData( "http://localhost:8080/bazar/component/" + id,
+                    putFormData( `${BASE_URL}/bazar/component/` + id,
                                 formData) 
             } else {
-                postFormData( "http://localhost:8080/bazar/component",
+                postFormData( `${BASE_URL}/bazar/component`,
                                 formData ) 
             }
 
@@ -60,7 +60,7 @@ const PCComponentForm = () => {
         if(dataLoaded.current) return;
 
         if(id) {
-             getData("http://localhost:8080/bazar/component/" + id)
+             getData(`${BASE_URL}/bazar/component/` + id)
                 .then( (data) => {  
                     setPCComponent(data);
                     // Load images from server, check if imageFile is not null or undefined and convert them to File from base64 format

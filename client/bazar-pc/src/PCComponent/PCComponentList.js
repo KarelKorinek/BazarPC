@@ -3,6 +3,7 @@ import {getData, deleteData} from "../utilities/fetch"
 import "../styles.css"
 import {Link, useNavigate, useParams} from "react-router-dom"
 import ReactPaginate from "react-paginate"
+import { BASE_URL } from "../constants/GlobalConstants";
 
 const PCComponentList = () => {
 
@@ -17,15 +18,15 @@ const PCComponentList = () => {
 
     useEffect( () => {
         userId ?
-                    getData(`http://localhost:8080/bazar/components/${userId}?${PAGE_QUERY}`)
+                    getData(`${BASE_URL}/bazar/components/${userId}?${PAGE_QUERY}`)
                         .then( data => setPcComponents(data))
                 :   
-                    getData(`http://localhost:8080/bazar/components?${PAGE_QUERY}`)
+                    getData(`${BASE_URL}/bazar/components?${PAGE_QUERY}`)
                         .then(data => setPcComponents(data))
     },[pageNumberState]);
 
     const deletePCComponent = (id) => {
-        deleteData("http://localhost:8080/bazar/component/" + id);
+        deleteData(`${BASE_URL}/bazar/component/` + id);
         // update PC component list (remove deleted item according its id)
         setPcComponents( prevPage => (  {...prevPage, 
                                             content: prevPage.content.filter( item => item.id !== id) // remove deleted PC component from the list

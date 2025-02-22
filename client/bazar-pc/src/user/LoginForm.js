@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { postJSONData } from "../utilities/fetch";
 import { useNavigate } from "react-router-dom";
 import { useSession } from "../context/session";
+import { BASE_URL } from "../constants/GlobalConstants";
 
 const LoginForm = () => {
 
@@ -15,7 +16,7 @@ const LoginForm = () => {
 
     const handleSubmit = () => {
 
-        postJSONData(   "http://localhost:8080/bazar/user/account",
+        postJSONData(   `${BASE_URL}/bazar/user/account`,
                         userState )
                     .then((data) => setSession( {data, status: "authenticated"}));
 

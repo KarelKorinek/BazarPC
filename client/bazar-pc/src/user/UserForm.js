@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { postJSONData } from "../utilities/fetch";
 import { useNavigate } from "react-router-dom"; 
-
+import { BASE_URL } from "../constants/GlobalConstants";
 
 const UserForm = () => {
 
@@ -17,7 +17,7 @@ const UserForm = () => {
             // create new object userData and copy userState content without confirmPassword
             const { confirmPassword, ...userData } = userState;
 
-            postJSONData( "http://localhost:8080/bazar/user/",
+            postJSONData( `${BASE_URL}/bazar/user/`,
                           userData )
                     .then(() => {
                         // redirect to login page

@@ -16,13 +16,15 @@ import LoginForm from "./user/LoginForm";
 import { useSession } from "./context/session";
 import { deleteData } from "./utilities/fetch";
 import CookieConsent from "./context/cookieConsent";
+import { BASE_URL } from "./constants/GlobalConstants";
+
 
 export function App() {
 
   const { session, setSession } = useSession();
 
   const handleLogout = () => {
-    deleteData("http://localhost:8080/bazar/user/account")
+    deleteData(`${BASE_URL}/bazar/user/account`)
       .finally( () => setSession({
         data: null,
         status: "unauthorized"
