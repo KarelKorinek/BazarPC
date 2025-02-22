@@ -53,26 +53,28 @@ const PCComponentDetail = () => {
                     <span className="visually-hidden">Next</span>
                 </button>
             </div>
-            
-            <h5 className="pt-5">
-                Popis: 
-            </h5>
-            <p>
-                {PCComponent.description}
-            </p>
-            <h5>
-                Kontakt:  
-            </h5>
-            <p>
-                
-            </p>
-            <h5>
-                Cena:  
-            </h5>
-            <p>
-                {PCComponent.price} Kč
-            </p>
 
+            <div className="card  mt-4 mb-4 shadow">
+                <div className="card-body">
+                    <h5 className="card-title">{PCComponent.name}</h5>
+                    <h6 className="card-subtitle mt-2">Popis:</h6>
+                    <p className="card-text mt-1"> {PCComponent.description}</p>
+                    <h6 className="card-subtitle mt-2">Prodejce:</h6>
+                    <p className="card-text mt-1"> {PCComponent.userDetail.firstName} {PCComponent.userDetail.lastName} </p>
+                    <h6 className="card-subtitle mt-2">E-mail:</h6>
+                    <p className="card-text mt-1"> {PCComponent.userDetail.email}</p>
+                    <h6 className="card-subtitle mt-2">Adresa:</h6>
+                    <p className="card-text"> 
+                        {PCComponent.userDetail.city}
+                        <br/>
+                        {PCComponent.userDetail.street}
+                        <br/>
+                        {PCComponent.userDetail.zipCode}
+                    </p>
+                    <h6 className="card-subtitle mt-2">Cena:</h6>
+                    <h5 className="card-title mt-1">{PCComponent.price} Kč</h5>
+                </div>
+            </div>
         </div>
     );
 }
