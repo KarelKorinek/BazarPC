@@ -17,7 +17,7 @@ const UserForm = () => {
             // create new object userData and copy userState content without confirmPassword
             const { confirmPassword, ...userData } = userState;
 
-            postJSONData( `${BASE_URL}/bazar/user/`,
+            postJSONData( `${BASE_URL}/api/user/`,
                           userData )
                     .then(() => {
                         // redirect to login page

@@ -38,10 +38,10 @@ const PCComponentForm = () => {
             formData.append("data", data);
             
             if(id) { 
-                    putFormData( `${BASE_URL}/bazar/component/` + id,
+                    putFormData( `${BASE_URL}/api/component/` + id,
                                 formData) 
             } else {
-                postFormData( `${BASE_URL}/bazar/component`,
+                postFormData( `${BASE_URL}/api/component`,
                                 formData ) 
             }
 

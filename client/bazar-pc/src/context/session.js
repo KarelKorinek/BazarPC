@@ -45,7 +45,7 @@ export const SessionProvider = ({children}) => {
 
     // get session data from server
     useEffect( () => {
-        getData( `${BASE_URL}/bazar/user/account`)
+        getData( `${BASE_URL}/api/user/account`)
             .then( data => setSessionState( {
                 data,
                 status: "authenticated"

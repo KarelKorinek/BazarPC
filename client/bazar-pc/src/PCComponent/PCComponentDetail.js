@@ -9,7 +9,7 @@ const PCComponentDetail = () => {
     const [PCComponent, setPcComponent] = useState(null);
     
     useEffect( () => {
-        getData(`${BASE_URL}/bazar/component/` + id)
+        getData(`${BASE_URL}/api/component/` + id)
         .then(data => setPcComponent(data));
 
     }, []);
