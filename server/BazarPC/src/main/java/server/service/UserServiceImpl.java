@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import server.dto.LoginDTO;
 import server.dto.UserDTO;
 import server.dto.mapper.UserMapper;
 import server.entity.UserEntity;
@@ -167,16 +168,16 @@ public class UserServiceImpl implements UserService{
     /**
      *  A user log in service
      *
-     * @param userDTO               the information about user to sign in (username, password)
+     * @param loginDTO               the information about user to sign in (username, password)
      * @param httpServletRequest    the object which maintains user session, the object performs a user login
      * @return                      the login user information
      */
     @Override
-    public UserDTO loginUser(UserDTO userDTO, HttpServletRequest httpServletRequest){
+    public UserDTO loginUser(LoginDTO loginDTO, HttpServletRequest httpServletRequest){
 
         try {
             // the httpServletRequest object performs user log in
-            httpServletRequest.login(userDTO.getEmail(), userDTO.getPassword());
+            httpServletRequest.login(loginDTO.getEmail(), loginDTO.getPassword());
         } catch (ServletException e) {
             throw new AuthenticationException("Authentication error while log in");
         }

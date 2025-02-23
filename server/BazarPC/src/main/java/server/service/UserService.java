@@ -1,6 +1,7 @@
 package server.service;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import server.dto.LoginDTO;
 import server.dto.UserDTO;
 
 import java.util.List;
@@ -45,11 +46,11 @@ public interface UserService extends UserDetailsService {
     /**
      *  A user log in service
      *
-     * @param userDTO               the information about user to sign in (username, password)
+     * @param loginDTO               the information about user to sign in (username, password)
      * @param httpServletRequest    the object which maintains user session, the object performs a user login
      * @return                      the login user information
      */
-    UserDTO loginUser(UserDTO userDTO, HttpServletRequest httpServletRequest);
+    UserDTO loginUser(LoginDTO loginDTO, HttpServletRequest httpServletRequest);
 
     /**
      *  A user log out service

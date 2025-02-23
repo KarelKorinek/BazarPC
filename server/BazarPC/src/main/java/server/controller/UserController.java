@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
+import server.dto.LoginDTO;
 import server.dto.UserDTO;
 import server.service.UserService;
 
@@ -79,14 +80,14 @@ public class UserController {
     /**
      *  Login a user to account
      *
-     * @param userDTO               the user information (username and password)
+     * @param loginDTO              the user information (username and password)
      * @param httpServletRequest    an object which performs login process
      * @return                      the logged user information
      */
     @PostMapping("/account")
-    public UserDTO login(@RequestBody @Valid UserDTO userDTO,
+    public UserDTO login(@RequestBody @Valid LoginDTO loginDTO,
                          HttpServletRequest httpServletRequest)  {
-        return userService.loginUser(userDTO, httpServletRequest);
+        return userService.loginUser(loginDTO, httpServletRequest);
     }
 
     /**
