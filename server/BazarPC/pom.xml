@@ -17,6 +17,13 @@
         <org.springframework.version>3.4.0</org.springframework.version>
     </properties>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.4.3</version>
+        <relativePath/>
+    </parent>
+
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web -->
         <dependency>
@@ -94,6 +101,14 @@
                         <!-- the arg -parameters allows to use instead of i.e. @PathVariable("Id") just @PathVariable without parameter name  -->
                         <arg>-parameters</arg>
                     </compilerArgs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>3.4.3</version>
+                <configuration>
+                    <mainClass>server.ApplicationMain</mainClass>
                 </configuration>
             </plugin>
         </plugins>
