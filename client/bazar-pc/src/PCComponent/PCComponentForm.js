@@ -60,7 +60,7 @@ const PCComponentForm = () => {
         if(dataLoaded.current) return;
 
         if(id) {
-             getData(`${BASE_URL}/bazar/component/` + id)
+             getData(`${BASE_URL}/api/component/` + id)
                 .then( (data) => {  
                     setPCComponent(data);
                     // Load images from server, check if imageFile is not null or undefined and convert them to File from base64 format

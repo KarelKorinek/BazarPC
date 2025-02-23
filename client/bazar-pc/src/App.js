@@ -24,7 +24,7 @@ export function App() {
   const { session, setSession } = useSession();
 
   const handleLogout = () => {
-    deleteData(`${BASE_URL}/bazar/user/account`)
+    deleteData(`${BASE_URL}/api/user/account`)
       .finally( () => setSession({
         data: null,
         status: "unauthorized"

@@ -16,7 +16,7 @@ const LoginForm = () => {
 
     const handleSubmit = () => {
 
-        postJSONData(   `${BASE_URL}/bazar/user/account`,
+        postJSONData(   `${BASE_URL}/api/user/account`,
                         userState )
                     .then((data) => setSession( {data, status: "authenticated"}));
 

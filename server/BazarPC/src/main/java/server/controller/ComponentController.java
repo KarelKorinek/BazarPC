@@ -13,7 +13,7 @@ import server.service.ComponentService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/bazar")
+@RequestMapping("/api")
 public class ComponentController {
 
     @Autowired

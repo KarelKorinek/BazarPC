@@ -18,15 +18,15 @@ const PCComponentList = () => {
 
     useEffect( () => {
         userId ?
-                    getData(`${BASE_URL}/bazar/components/${userId}?${PAGE_QUERY}`)
+                    getData(`${BASE_URL}/api/components/${userId}?${PAGE_QUERY}`)
                         .then( data => setPcComponents(data))
                 :   
-                    getData(`${BASE_URL}/bazar/components?${PAGE_QUERY}`)
+                    getData(`${BASE_URL}/api/components?${PAGE_QUERY}`)
                         .then(data => setPcComponents(data))
     },[pageNumberState]);
 
     const deletePCComponent = (id) => {
-        deleteData(`${BASE_URL}/bazar/component/` + id);
+        deleteData(`${BASE_URL}/api/component/` + id);
         // update PC component list (remove deleted item according its id)
         setPcComponents( prevPage => (  {...prevPage, 
                                             content: prevPage.content.filter( item => item.id !== id) // remove deleted PC component from the list
