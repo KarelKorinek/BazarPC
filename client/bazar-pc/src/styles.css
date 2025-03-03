@@ -47,6 +47,10 @@
     max-width: 1080px;
 }
 
+.item-size-detail {
+    max-width: 720px;
+}
+
 .remove-link-decoration {
     text-decoration: none;
     color: black;
