@@ -5,7 +5,7 @@ import { useSession } from "./context/session";
 import { deleteData } from "./utilities/fetch";
 import { BASE_URL } from "./constants/GlobalConstants";
 
-const Navbarr = () => {
+const Navbar = () => {
 
     const { session, setSession } = useSession();
 
@@ -51,31 +51,31 @@ const Navbarr = () => {
     )
 
     return (
-        <div className="position-fixed top-0 end-0 m-3">
-        <Button variant="primary" className="d-md-none" onClick={handleShow}>
-            Menu
-        </Button>
-        {/* PC version navigation menu*/}
-        <nav className="d-none d-md-flex justify-content-center gap-4 p-3 nav-underline">      
-            {navMenu}
-        </nav>
-
-        {/* Mobile version navigation menu */}
-        <div className="d-flex d-md-none position-fixed top-0 end-0 m-3">
-            <Offcanvas show={show} onHide={handleClose} responsive="lg" placement={'end'} >
-                <Offcanvas.Header closeButton>
-                <Offcanvas.Title>Menu</Offcanvas.Title>
-                </Offcanvas.Header>
-                <Offcanvas.Body>
-                    <ul className="navbar-nav nav-underline">
-                        {navMenu}
-                    </ul>
-                </Offcanvas.Body>
-            </Offcanvas>
-        </div>
+        <div className="d-flex justify-content-end top-0 end-0 m-3">
+          <Button variant="primary" className="d-md-none" onClick={handleShow}>
+              Menu
+          </Button>
+          {/* PC version navigation menu*/}
+          <nav className="d-none d-md-flex gap-4 p-3 nav-underline">      
+              {navMenu}
+          </nav>
+    
+          {/* Mobile version navigation menu */}
+          <div className="d-md-none top-0 end-0 m-3">
+              <Offcanvas show={show} onHide={handleClose} responsive="lg" placement="end" >
+                  <Offcanvas.Header closeButton>
+                  <Offcanvas.Title>Menu</Offcanvas.Title>
+                  </Offcanvas.Header>
+                  <Offcanvas.Body>
+                      <nav className="navbar-nav nav-underline">
+                          {navMenu}
+                      </nav>
+                  </Offcanvas.Body>
+              </Offcanvas>
+          </div>
         </div>
     );
 }
 
-export default Navbarr;
+export default Navbar;
 

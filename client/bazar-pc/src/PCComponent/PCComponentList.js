@@ -4,6 +4,7 @@ import "../styles.css"
 import {Link, useNavigate, useParams} from "react-router-dom"
 import ReactPaginate from "react-paginate"
 import { BASE_URL } from "../constants/GlobalConstants";
+import BazarPCLogo from "../icons/BazarPCLogo.webp";
 
 const PCComponentList = () => {
 
@@ -43,7 +44,7 @@ const PCComponentList = () => {
                         </div>
                      :
                         <div className="container mx-auto mt-5 d-flex justify-content-center align-items-center">
-                            <img src="icons/BazarPCLogo.webp" className="w-25 title-image"></img>
+                            <img src={BazarPCLogo} className="w-25 title-image"></img>
                             <h1 className="d-inline mx-5 title-text ">PC bazar</h1>
                         </div>
             }
