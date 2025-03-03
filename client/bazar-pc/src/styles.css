@@ -29,6 +29,31 @@
     color: rgb(32, 48, 142);
 }
 
+@media (max-width: 770px) {
+    .title-text {
+        font-size: 50px;    
+    }
+}
+
 .title-image {
     border-radius: 20px;
 }
+
+.ItemCard:hover {
+    background-color: #f8f9fa; 
+}
+
+.item-size {
+    max-width: 1080px;
+}
+
+.remove-link-decoration {
+    text-decoration: none;
+    color: black;
+}
+
+.nav-margin {
+    margin-bottom: 100px;
+}
+
+

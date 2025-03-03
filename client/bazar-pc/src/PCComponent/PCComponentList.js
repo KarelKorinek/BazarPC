@@ -36,64 +36,65 @@ const PCComponentList = () => {
     if(!PcComponentsState) return(<p>Načítám...</p>);
     
     return (
-        <div className="container-mt5">
+        <div className="container">
             { userId ? 
                         <div className="container d-block mx-auto mt-5">
                             <h1>Moje inzeráty: </h1>
                         </div>
                      :
-                        <div className="container d-block mx-auto mt-5">
-                            <div className="row">
-                                <div className="col">
-                                    <img src="icons/BazarPCLogo.webp" className="w-25 title-image"></img>
-                                    <h1 className="d-inline mx-5 title-text">PC bazar</h1>
-                                </div>
-                            </div>    
+                        <div className="container mx-auto mt-5 d-flex justify-content-center align-items-center">
+                            <img src="icons/BazarPCLogo.webp" className="w-25 title-image"></img>
+                            <h1 className="d-inline mx-5 title-text ">PC bazar</h1>
                         </div>
             }
-            <table className="table  centered-table table-hover" id="components-table">
-                <thead>
-                    <tr>
-                        <th>Foto</th>
-                        <th>Název</th>
-                        <th>Cena</th>
-                        {userId ? <th>Akce</th>
-                                : <th>Prodejce</th>    
-                    }
-                    </tr>
-                </thead>
-                <tbody>
-                    { PcComponentsState.content.map( (item) => (
-                        <tr key={item.id}> 
 
-                            <td>
-                                <Link to={"/bazar/detail/" + item.id}>
-                                    <img src={`data:image/jpeg;base64,${item.imageFiles[0]}`} className="img"></img>
-                                </Link>
-                            </td>
-                            <td>
-                                <Link to={"/bazar/detail/" + item.id}>
-                                    {item.name}
-                                </Link>
-                            </td>
-                            <td>
-                                {item.price} Kč
-                            </td>
-                            { userId ?  <td>
-                                            <div class="d-grid gap-2">
-                                                <button type="button" class="btn btn-danger" onClick={ () => {deletePCComponent(item.id)} }>Odstranit</button>
-                                                <button type="button" class="btn btn-warning" onClick={ () => {navigate("/bazar/component/edit/" + item.id)} }>Upravit</button>
-                                            </div>
-                                        </td>
-                                     :                           
-                                        <td>
+            <div className="container mt-5">
+                { PcComponentsState.content.map( (item, index) => (  
+                    <div key={index} className="d-flex justify-content-center align-items-center"> 
+                        <div className="card mb-3 ItemCard border-dark item-size">
+                            <Link to={"/bazar/detail/" + item.id} className="remove-link-decoration">
+                            <div className="row g-0">
+                                <div className="col-md-4">                       
+                                    <img className="img-fluid" src={`data:image/jpeg;base64,${item.imageFiles[0]}`}></img>       
+                                </div>
+                                <div className="col-md-8">
+                                    <div className="card-body">
+                                        <h3 className="card-title mb-5">
+                                            {item.name}
+                                        </h3>
+                                        <h5 className="card-title">
+                                            Prodejce:
+                                        </h5>
+                                        <div className="card-text">
                                             { item.userDetail ? `${item.userDetail.firstName} ${item.userDetail.lastName}`  : "Neznámý uživatel"}
-                                        </td>
-                            }
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+                                        </div>
+                                        <h5 className="card-title mt-3">
+                                            Popis:
+                                        </h5>
+                                        <div className="card-text">
+                                            { item.description}
+                                        </div>
+                                        <h5 className="card-title mt-3">
+                                            Cena:
+                                        </h5>
+                                        <div className="card-footer">
+                                            {item.price} Kč
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </Link>
+                        </div>
+                        { userId ?
+                                        <div className="d-flex flex-column">
+                                            <button type="button" class="btn btn-danger my-2 mx-2" onClick={ () => {deletePCComponent(item.id)} }>Odstranit</button>
+                                            <button type="button" class="btn btn-warning my-2 mx-2" onClick={ () => {navigate("/bazar/component/edit/" + item.id)} }>Upravit</button>                                    
+                                        </div>
+                                     : ""
+                                    }
+                    </div>
+                ))}
+            </div>
 
             {/* Pagination */}
             <ReactPaginate 

@@ -18,12 +18,12 @@ const PCComponentDetail = () => {
     if(!PCComponent) return (<div>Načítám...</div>);
     
     return (
-        <div className="container w-50 card pt-5 mt-3 mb-3">
+        <div className="container border pt-5 mt-3 mb-3 item-size">
 
             <h1>
                 {PCComponent.name}
             </h1>
-            <div id="ImageCarousel" className="carousel slide pt-5" >
+            <div id="ImageCarousel" className="carousel slide pt-5 text-center" >
                 <div className="carousel-indicators">
                     { PCComponent.imageFiles.map( (image, index) => (
                         (index === 0) ?                     
@@ -36,16 +36,16 @@ const PCComponentDetail = () => {
                     { PCComponent.imageFiles.map( (image, index) => (
                         (index === 0) ?                     
                             <div key={index} className="carousel-item active">
-                                <img className="d-block w-100" src={`data:image/jpeg;base64,${image}`}></img>
+                                <img className="img-fluid" src={`data:image/jpeg;base64,${image}`}></img>
                             </div>
                             :
                             <div key={index} className="carousel-item">
-                                <img className="d-block w-100" src={`data:image/jpeg;base64,${image}`}></img>
+                                <img className="d-block " src={`data:image/jpeg;base64,${image}`}></img>
                             </div>                           
                         
                     ))}
                 </div>
-                <button className="carousel-control-prev" type="button" data-bs-target="#ImageCarousel" data-bs-slide="prev">
+                <button className="carousel-control-prev " type="button" data-bs-target="#ImageCarousel" data-bs-slide="prev">
                     <span className="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span className="visually-hidden">Previous</span>
                 </button>
