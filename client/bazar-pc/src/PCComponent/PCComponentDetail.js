@@ -18,7 +18,7 @@ const PCComponentDetail = () => {
     if(!PCComponent) return (<div>Načítám...</div>);
     
     return (
-        <div className="container border pt-5 mt-3 mb-3 item-size">
+        <div className="container border pt-5 mt-3 mb-3 item-size-detail">
 
             <h1>
                 {PCComponent.name}
