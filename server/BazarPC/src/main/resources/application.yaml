@@ -10,14 +10,17 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  servlet:
+    multipart:
+      max-file-size: 10MB
 
 server:
   port: 8080
 
 # Logging for debugging
-#logging:
-#  level:
-#    org.springframework.web: DEBUG
-#    org.springframework: INFO
-#  file:
-#    name: logs/myapp.log
+logging:
+  level:
+    org.springframework.web: DEBUG
+    org.springframework: INFO
+  file:
+    name: logs/myapp.log
