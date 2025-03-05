@@ -177,7 +177,7 @@ const PCComponentForm = () => {
                     </div>
                     <br/>
                     <label htmlFor="imageUpload" className="form-label">
-                        Nahrát fotku: 
+                        Nahrát fotku (max. 10MB): 
                     </label>
                     <input  type="file"
                             className="form-control"
