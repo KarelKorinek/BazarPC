@@ -9,7 +9,7 @@ function handleFetch( url, options) {
             if(response.ok) return response.json();
             throw new Error("Error while getting data from server.");
         })
-        .catch((error) => {throw error});      
+        .catch(error => console.log(error));           
 }
 
 export function deleteData(url) {
