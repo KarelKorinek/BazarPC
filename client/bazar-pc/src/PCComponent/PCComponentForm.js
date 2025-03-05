@@ -7,6 +7,7 @@ import { BASE_URL, ComponentCategory} from "../constants/GlobalConstants";
 
 const PCComponentForm = () => {
 
+    const [serverErrorMsgState, setServerErrorMsg] = useState(null);
     const navigate = useNavigate();
     const dataLoaded = useRef(false);
     const {id} = useParams();
@@ -42,19 +43,17 @@ const PCComponentForm = () => {
                                 formData) 
             } else {
                 postFormData( `${BASE_URL}/api/component`,
-                                formData ) 
+                                formData )
+                .catch( () => setServerErrorMsg("Nelze provést akci, zkontrolujte velikost souborů!")); 
             }
 
             // redirect to user components list
-            navigate("/bazar/components/" + session.data.id);
+            if(serverErrorMsgState) navigate("/bazar/components/" + session.data.id);
+
         } else {
             alert("Nahrajte alespoň jednu fotku!");
         }
     };
-
-    useEffect( () => {
-        console.log(imagesState[0]);
-    },[imagesState])
 
     useEffect( () => {
         if(dataLoaded.current) return;
@@ -86,6 +85,7 @@ const PCComponentForm = () => {
 
     return (
         <div className="container custom-form-width card p-3 mt-3 mb-3">
+            {serverErrorMsgState ? <div className="alert alert-danger">{serverErrorMsgState}</div> : null}
             <h2>Vytvoření inzerátu:</h2>
 
             {/*Form for an ad creation*/}
