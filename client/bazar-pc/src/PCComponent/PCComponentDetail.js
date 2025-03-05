@@ -40,7 +40,7 @@ const PCComponentDetail = () => {
                             </div>
                             :
                             <div key={index} className="carousel-item">
-                                <img className="d-block " src={`data:image/jpeg;base64,${image}`}></img>
+                                <img className="img-fluid d-block " src={`data:image/jpeg;base64,${image}`}></img>
                             </div>                           
                         
                     ))}
